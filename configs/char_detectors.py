@@ -34,5 +34,5 @@ model = dict(
 work_dir = './work_dirs/char_detectors_fp32'
 # fp16 = dict(loss_scale=512.)
 
-optimizer = dict(type='SGD', lr=0.0002, momentum=0.9, weight_decay=0.0001)
+optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 gpus = 2
