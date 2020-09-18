@@ -27,4 +27,4 @@ model = dict(
             pretrained='torchvision://resnet50',
             style='pytorch')))
 
-work_dir = './work_dirs/char_base'
+work_dir = './work_dirs/char_detectors'
