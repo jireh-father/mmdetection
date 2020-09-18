@@ -28,3 +28,4 @@ model = dict(
             style='pytorch')))
 
 work_dir = './work_dirs/char_detectors'
+fp16 = dict(loss_scale=512.)
