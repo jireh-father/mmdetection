@@ -81,4 +81,4 @@ work_dir = './work_dirs/char_base'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
-gpus = 0
+gpus = 2
