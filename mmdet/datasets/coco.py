@@ -29,7 +29,8 @@ except AssertionError:
 class CocoDataset(CustomDataset):
 
     # CLASSES = tuple(json.load(open("db/total_characters.json")))
-    CLASSES = ('word',)
+    # CLASSES = ('word',)
+    CLASSES = ('0','1','2','3','4','5','6','7','8','9')
 
     def load_annotations(self, ann_file):
         """Load annotation from COCO style annotation file.
