@@ -28,7 +28,7 @@ except AssertionError:
 @DATASETS.register_module()
 class CocoDataset(CustomDataset):
 
-    CLASSES = tuple(json.load(open("db/total_characters.json")))
+    # CLASSES = tuple(json.load(open("db/total_characters.json")))
     CLASSES = ('word',)
 
     def load_annotations(self, ann_file):
