@@ -20,7 +20,7 @@ def main():
     # build the model from a config file and a checkpoint file
     model = init_detector(args.config, args.checkpoint, device=args.device)
 
-    os.makedirs(args.output_dir)
+    os.makedirs(args.output_dir, exist_ok=True)
     img_files = glob.glob(args.imgs)
     for img in img_files:
         # test a single image
