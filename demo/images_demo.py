@@ -24,6 +24,7 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     img_files = glob.glob(args.imgs)
     for img in img_files:
+        print(os.path.basename(img))
         # test a single image
         start = time.time()
         result = inference_detector(model, img)
