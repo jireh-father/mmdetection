@@ -35,17 +35,17 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'char_num/train_coco.json',
+        ann_file=data_root + 'char_num_bboxmask/train_coco.json',
         img_prefix=data_root + 'char_num/images',
         classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'char_num/val_coco.json',
+        ann_file=data_root + 'char_num_bboxmask/val_coco.json',
         img_prefix=data_root + 'char_num/images',
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'char_num/test_coco.json',
+        ann_file=data_root + 'char_num_bboxmask/test_coco.json',
         img_prefix=data_root + 'char_num/images',
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(metric=['bbox', 'segm'])
