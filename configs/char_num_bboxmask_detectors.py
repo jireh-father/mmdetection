@@ -33,5 +33,4 @@ model = dict(
 
 work_dir = './work_dirs/char_num_bboxmask_detectors'
 
-# optimizer = dict(type='SGD', lr=0.00002, momentum=0.9, weight_decay=0.0001)
-optimizer = dict(type='ADAM', lr=0.001, momentum=0.9, weight_decay=0.0001)
+optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
