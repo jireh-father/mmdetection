@@ -1,4 +1,4 @@
-dataset_type = 'CocoDataset'
+dataset_type = 'CharCocoDataset'
 data_root = 'data/coco/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -35,17 +35,17 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'char_num/train_coco.json',
-        img_prefix=data_root + 'char_num/images',
+        ann_file=data_root + 'char/train_coco.json',
+        img_prefix=data_root + 'char/images',
         classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'char_num/val_coco.json',
-        img_prefix=data_root + 'char_num/images',
+        ann_file=data_root + 'char/val_coco.json',
+        img_prefix=data_root + 'char/images',
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'char_num/test_coco.json',
-        img_prefix=data_root + 'char_num/images',
+        ann_file=data_root + 'char/test_coco.json',
+        img_prefix=data_root + 'char/images',
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(metric=['bbox', 'segm'])
