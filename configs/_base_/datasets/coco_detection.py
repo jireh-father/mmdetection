@@ -45,7 +45,7 @@ data = dict(
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/val_afp_coco.json',
+        ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/val_custom_coco.json',
         img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
