@@ -6,6 +6,57 @@
 
 Documentation: https://mmdetection.readthedocs.io/
 
+# For AI For Pet
+## Install
+```shell
+git clone https://github.com/jireh-father/mmdetection.git
+cd mmdetection
+```
+
+Please refer to [install.md](docs/install.md) for installation and dataset preparation.
+(저는 Conda 사용해서 CUDA 버전에 맞게 설치해야 합니다.)
+
+## Training
+### Download Config file and Save
+```shell
+cd configs
+# 다운로드 경로 : mmdetection/configs/ectropion
+wget https://font-recognizer-bucket.s3.us-east-2.amazonaws.com/resource/dog_ectropion/ectropion.py
+```
+
+### Download Data and Save
+```shell
+cd ..
+wget https://font-recognizer-bucket.s3.us-east-2.amazonaws.com/resource/dog_ectropion/data.zip
+unzip data.zip
+# 저장 경로 : mmdetection/data/coco/...
+```
+
+### Training
+```shell
+python tools/train.py configs/ectropion.py
+```
+
+## Test
+### Download model file and Save
+```shell
+# 다운로드 경로: mmdetection/ectropion_image_segmentation_model_latest.pth
+wget https://font-recognizer-bucket.s3.us-east-2.amazonaws.com/resource/dog_ectropion/ectropion_image_segmentation_model_latest.pth
+```
+
+### Test model
+```shell
+python tools/test.py configs/ectropion.py ectropion_image_segmentation_model_latest.pth \
+--show-dir=[시각화 이미지 저장할 디렉토리 경로] \
+--show-score-thr=[지정된 score 이상일 경우만 시각화(ex: 0.7)]
+```
+
+
+End of Manual for AI For Pet
+
+---
+
+
 ## Introduction
 
 MMDetection is an open source object detection toolbox based on PyTorch. It is
