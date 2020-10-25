@@ -14,7 +14,7 @@ cd mmdetection
 ```
 
 Please refer to [install.md](docs/install.md) for installation and dataset preparation.
-(저는 Conda 사용해서 CUDA 버전에 맞게 설치해야 합니다.)
+(Conda 사용해서 CUDA 버전에 맞게 설치해야 합니다.)
 
 ## Training
 ### Download Config file and Save
