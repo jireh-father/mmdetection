@@ -34,7 +34,7 @@ def main():
         result = inference_detector(model, img)
         print(time.time() - start)
         # show the results
-        if not result or not result[0] or len(result[0]) < 1:
+        if len(result) < 1  or len(result[0]) < 1:
             shutil.copy(img, os.path.join(args.output_dir, 'nodetected'))
             continue
         output_path = os.path.join(args.output_dir, 'vis', os.path.splitext(os.path.basename(img))[0] + ".jpg")
