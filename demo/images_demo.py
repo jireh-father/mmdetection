@@ -4,6 +4,8 @@ from mmdet.apis import inference_detector, init_detector, save_result_pyplot
 import glob
 import os
 import time
+import shutil
+from PIL import Image
 
 
 def main():
@@ -23,6 +25,7 @@ def main():
 
     os.makedirs(os.path.join(args.output_dir, 'vis'), exist_ok=True)
     os.makedirs(os.path.join(args.output_dir, 'crop'), exist_ok=True)
+    os.makedirs(os.path.join(args.output_dir, 'nodetected'), exist_ok=True)
     img_files = glob.glob(args.imgs)
     for img in img_files:
         print(os.path.basename(img))
@@ -31,10 +34,19 @@ def main():
         result = inference_detector(model, img)
         print(time.time() - start)
         # show the results
-        print(result)
-        sys.exit()
+        if not result or not result[0] or len(result[0]) < 1:
+            shutil.copy(img, os.path.join(args.output_dir, 'nodetected'))
+            continue
         output_path = os.path.join(args.output_dir, 'vis', os.path.splitext(os.path.basename(img))[0] + ".jpg")
         save_result_pyplot(model, img, result, output_path, score_thr=args.score_thr)
+        im = Image.open(img).convert("RGB")
+        for j, bbox in enumerate(result[0]):
+            if bbox[4] < args.score_thr:
+                continue
+            del bbox[4]
+            crop_im = im.crop(bbox)
+            crop_im.save(
+                os.path.join(args.output_dir, 'crop', os.path.splitext(os.path.basename(img))[0] + "_{}.jpg".format(j)))
 
 
 if __name__ == '__main__':
