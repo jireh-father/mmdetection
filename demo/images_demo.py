@@ -43,7 +43,6 @@ def main():
         for j, bbox in enumerate(result[0]):
             if bbox[4] < args.score_thr:
                 continue
-            del bbox[4]
             crop_im = im.crop([int(b) for b in bbox[-2:]])
             crop_im.save(
                 os.path.join(args.output_dir, 'crop', os.path.splitext(os.path.basename(img))[0] + "_{}.jpg".format(j)))
