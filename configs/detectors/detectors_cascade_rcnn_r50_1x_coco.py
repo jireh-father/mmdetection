@@ -1,7 +1,7 @@
 _base_ = [
     '../_base_/models/cascade_rcnn_r50_fpn.py',
     '../_base_/datasets/coco_detection.py',
-    '../_base_/schedules/schedule_2x.py', '../_base_/default_runtime.py'
+    '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 
 model = dict(
@@ -32,4 +32,4 @@ model = dict(
             style='pytorch')))
 
 work_dir = './work_dirs/dog_eye_detectors_bbox_ft'
-load_from = '/home/ubuntu/source/mmdetection/work_dirs/dog_eye_detectors_bbox/latest.pth'
+#load_from = '/home/ubuntu/source/mmdetection/work_dirs/dog_eye_detectors_bbox/latest.pth'
