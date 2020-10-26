@@ -31,5 +31,5 @@ model = dict(
             pretrained='torchvision://resnet50',
             style='pytorch')))
 
-work_dir = './work_dirs/dog_eye_detectors_bbox'
+work_dir = './work_dirs/dog_eye_detectors_bbox_ft'
 load_from = '/home/ubuntu/source/mmdetection/work_dirs/dog_eye_detectors_bbox/latest.pth'
