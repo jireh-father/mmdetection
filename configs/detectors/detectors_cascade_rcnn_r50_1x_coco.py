@@ -32,3 +32,4 @@ model = dict(
             style='pytorch')))
 
 work_dir = './work_dirs/dog_eye_detectors_bbox'
+load_from = '/home/ubuntu/source/mmdetection/work_dirs/dog_eye_detectors_bbox/latest.pth'
