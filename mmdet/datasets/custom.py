@@ -67,7 +67,6 @@ class CustomDataset(Dataset):
         self.CLASSES = self.get_classes(classes)
 
 
-        print("init dataset!!")
         # join paths if data_root is specified
         if self.data_root is not None:
             if not osp.isabs(self.ann_file):
@@ -82,6 +81,8 @@ class CustomDataset(Dataset):
                                               self.proposal_file)
         # load annotations (and proposals)
         self.data_infos = self.load_annotations(self.ann_file)
+        print(self.ann_file)
+        print(len(self.data_infos))
         # filter data infos if classes are customized
         if self.custom_classes:
             self.data_infos = self.get_subset_by_classes()
