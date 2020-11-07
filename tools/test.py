@@ -150,6 +150,7 @@ def main():
         # Replace 'ImageToTensor' to 'DefaultFormatBundle'
         cfg.data.test.pipeline = replace_ImageToTensor(cfg.data.test.pipeline)
     dataset = build_dataset(cfg.data.test)
+    print('dataset len', len(dataset))
     data_loader = build_dataloader(
         dataset,
         samples_per_gpu=samples_per_gpu,
