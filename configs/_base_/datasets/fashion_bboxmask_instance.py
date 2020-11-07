@@ -67,4 +67,4 @@ data = dict(
         ann_file=data_root + 'fashion/test_pubilc.json',
         img_prefix=data_root + 'fashion/test_images',
         classes=classes, pipeline=test_pipeline))
-evaluation = dict(interval=1, metric='bbox')
+evaluation = dict(metric=['bbox', 'segm'])
