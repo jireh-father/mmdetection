@@ -321,6 +321,7 @@ class FashionDataset(CustomDataset):
                 values are corresponding filenames.
         """
         result_files = dict()
+        print(results)
         if isinstance(results[0], list):
             json_results = self._det2json(results)
             result_files['bbox'] = f'{outfile_prefix}.bbox.json'
