@@ -66,6 +66,8 @@ class CustomDataset(Dataset):
         self.filter_empty_gt = filter_empty_gt
         self.CLASSES = self.get_classes(classes)
 
+
+        print("init dataset!!")
         # join paths if data_root is specified
         if self.data_root is not None:
             if not osp.isabs(self.ann_file):
