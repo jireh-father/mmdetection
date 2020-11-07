@@ -61,18 +61,15 @@ class FashionDataset(CustomDataset):
         Returns:
             list[dict]: Annotation info from COCO api.
         """
-        print('coco', ann_file)
         self.coco = COCO(ann_file)
         self.cat_ids = self.coco.get_cat_ids(cat_names=self.CLASSES)
         self.cat2label = {cat_id: i for i, cat_id in enumerate(self.cat_ids)}
         self.img_ids = self.coco.get_img_ids()
         data_infos = []
-        print(self.img_ids)
         for i in self.img_ids:
             info = self.coco.load_imgs([i])[0]
             info['filename'] = info['file_name']
             data_infos.append(info)
-        print('data len', len(data_infos))
         return data_infos
 
     def get_ann_info(self, idx):
