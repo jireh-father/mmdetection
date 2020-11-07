@@ -64,7 +64,7 @@ data = dict(
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'fashion/val_split.json',
-        img_prefix=data_root + 'fashion/train_images',
+        ann_file=data_root + 'fashion/test_public.json',
+        img_prefix=data_root + 'fashion/test_images',
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
