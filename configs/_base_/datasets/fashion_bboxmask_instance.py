@@ -55,16 +55,16 @@ data = dict(
     train=dict(
         type=dataset_type,
         ann_file=data_root + 'fashion/train_split.json',
-        img_prefix=data_root + 'fashion/train',
+        img_prefix=data_root + 'fashion/train_images',
         classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
         ann_file=data_root + 'fashion/val_split.json',
-        img_prefix=data_root + 'fashion/train',
+        img_prefix=data_root + 'fashion/train_images',
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
         ann_file=data_root + 'fashion/val_split.json',
-        img_prefix=data_root + 'fashion/train',
+        img_prefix=data_root + 'fashion/train_images',
         classes=classes, pipeline=test_pipeline))
-evaluation = dict(metric=['bbox', 'segm'])
+evaluation = dict(interval=1, metric='bbox')
