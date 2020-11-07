@@ -54,17 +54,17 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'fashion/train.json',
+        ann_file=data_root + 'fashion/train_split.json',
         img_prefix=data_root + 'fashion/train',
         classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'fashion/train.json',
+        ann_file=data_root + 'fashion/val_split.json',
         img_prefix=data_root + 'fashion/train',
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'fashion/test_public.json',
-        img_prefix=data_root + 'fashion/test',
+        ann_file=data_root + 'fashion/val_split.json',
+        img_prefix=data_root + 'fashion/train',
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(metric=['bbox', 'segm'])
