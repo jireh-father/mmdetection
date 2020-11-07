@@ -84,10 +84,10 @@ class CustomDataset(Dataset):
         print(self.ann_file)
         print(len(self.data_infos))
         # filter data infos if classes are customized
-        if self.custom_classes:
-            print('in custom_class')
-            self.data_infos = self.get_subset_by_classes()
-            print('len', len(self.data_infos))
+        # if self.custom_classes:
+        #     print('in custom_class')
+        #     self.data_infos = self.get_subset_by_classes()
+        #     print('len', len(self.data_infos))
         if self.proposal_file is not None:
             self.proposals = self.load_proposals(self.proposal_file)
         else:
