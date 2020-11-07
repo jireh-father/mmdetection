@@ -56,6 +56,7 @@ def train_detector(model,
                 f'{cfg.data.imgs_per_gpu} in this experiments')
         cfg.data.samples_per_gpu = cfg.data.imgs_per_gpu
 
+    print("load dataloader")
     data_loaders = [
         build_dataloader(
             ds,
@@ -78,6 +79,7 @@ def train_detector(model,
             broadcast_buffers=False,
             find_unused_parameters=find_unused_parameters)
     else:
+        print("create model")
         model = MMDataParallel(
             model.cuda(cfg.gpu_ids[0]), device_ids=cfg.gpu_ids)
 
@@ -111,6 +113,7 @@ def train_detector(model,
 
     # register eval hooks
     if validate:
+        print("register eval hooks")
         val_dataset = build_dataset(cfg.data.val, dict(test_mode=True))
         val_dataloader = build_dataloader(
             val_dataset,
@@ -140,4 +143,5 @@ def train_detector(model,
         runner.resume(cfg.resume_from)
     elif cfg.load_from:
         runner.load_checkpoint(cfg.load_from)
+    print("run!!")
     runner.run(data_loaders, cfg.workflow, cfg.total_epochs)
