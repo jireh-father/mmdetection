@@ -5,6 +5,7 @@ from tqdm import tqdm
 import pandas as pd
 from argparse import ArgumentParser
 import os
+import cv2
 
 
 def rle_encode(mask):
@@ -42,6 +43,24 @@ def rle_decode(rle_str, mask_shape, mask_dtype):
     return mask.reshape(mask_shape[::-1]).T
 
 
+def mask_to_poly(mask):
+    mask_new, contours, hierarchy = cv2.findContours((mask).astype(np.uint8), cv2.RETR_TREE,
+                                                     cv2.CHAIN_APPROX_SIMPLE)
+    # before opencv 3.2
+    # contours, hierarchy = cv2.findContours((mask).astype(np.uint8), cv2.RETR_TREE,
+    #                                                    cv2.CHAIN_APPROX_SIMPLE)
+    segmentation = []
+
+    for contour in contours:
+        contour = contour.flatten().tolist()
+        # segmentation.append(contour)
+        if len(contour) > 4:
+            segmentation.append(contour)
+    if len(segmentation) == 0:
+        return None
+    return segmentation[0]
+
+
 def main():
     parser = ArgumentParser()
     parser.add_argument('--result_file', help='Image file')
@@ -65,6 +84,10 @@ def main():
     category_ids = []
 
     for i in tqdm(range(len(json_data))):
+        mask = mutils.decode(json_data[i]['segmentation'])
+        poly = mask_to_poly(mask)
+        print(poly)
+        sys.exit()
         encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
         img_ids.append(json_data[i]['image_id'])
         category_ids.append(json_data[i]['category_id'])
