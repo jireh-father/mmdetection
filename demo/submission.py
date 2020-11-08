@@ -127,6 +127,7 @@ def main():
             mask = annToMask(new_polys, json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
             encoded_pixels.append(rle_to_string(rle_encode(mask)))
         except:
+            print("except")
             encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
         img_ids.append(json_data[i]['image_id'])
         category_ids.append(json_data[i]['category_id'])
