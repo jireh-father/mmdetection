@@ -113,7 +113,7 @@ def main():
         print(mask.shape)
         poly = mask_to_poly(mask)
         print(poly)
-        mask = annToMask(poly, json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
+        mask = annToMask([poly], json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
         print(mask.shape)
         sys.exit()
         encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
