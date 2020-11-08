@@ -43,6 +43,7 @@ def rle_decode(rle_str, mask_shape, mask_dtype):
         mask[lo:hi] = 1
     return mask.reshape(mask_shape[::-1]).T
 
+
 def annToRLE(segm, h, w):
     """
     Convert annotation which can be polygons, uncompressed RLE to RLE.
@@ -61,6 +62,7 @@ def annToRLE(segm, h, w):
         rle = segm
     return rle
 
+
 def annToMask(ann, h, w):
     """
     Convert annotation which can be polygons, uncompressed RLE, or RLE to binary mask.
@@ -69,6 +71,7 @@ def annToMask(ann, h, w):
     rle = annToRLE(ann, h, w)
     m = mutils.decode(rle)
     return m
+
 
 def mask_to_poly(mask):
     contours, hierarchy = cv2.findContours((mask).astype(np.uint8), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -84,7 +87,8 @@ def mask_to_poly(mask):
             segmentation.append(contour)
     if len(segmentation) == 0:
         return None
-    return segmentation[0]
+    return segmentation
+
 
 def main():
     parser = ArgumentParser()
@@ -110,13 +114,18 @@ def main():
 
     for i in tqdm(range(len(json_data))):
         mask = mutils.decode(json_data[i]['segmentation'])
-        print(mask.shape)
-        poly = mask_to_poly(mask)
-        print(poly)
-        mask = annToMask([poly], json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
-        print(mask.shape)
-        sys.exit()
-        encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
+        polys = mask_to_poly(mask)
+        new_polys = []
+        for poly in polys:
+            new_poly = []
+            for j in range(0, len(poly), 6):
+                new_poly.append(poly[j])
+                new_poly.append(poly[j + 1])
+            new_polys.append(new_poly)
+
+        mask = annToMask(new_polys, json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
+        encoded_pixels.append(rle_to_string(rle_encode(mask)))
+        # encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
         img_ids.append(json_data[i]['image_id'])
         category_ids.append(json_data[i]['category_id'])
         height.append(json_data[i]['segmentation']['size'][0])
