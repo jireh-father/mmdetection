@@ -119,6 +119,7 @@ def main():
             new_polys = []
             for poly in polys:
                 new_poly = []
+                print(len(poly))
                 for j in range(0, len(poly), 100):
                     new_poly.append(poly[j])
                     new_poly.append(poly[j + 1])
