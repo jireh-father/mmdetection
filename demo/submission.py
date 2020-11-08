@@ -111,28 +111,23 @@ def main():
     height = []
     width = []
     category_ids = []
-    excepts = 0
     for i in tqdm(range(len(json_data))):
-        try:
-            mask = mutils.decode(json_data[i]['segmentation'])
-            polys = mask_to_poly(mask)
-            new_polys = []
-            for poly in polys:
-                new_poly = []
-                print(len(poly))
-                for j in range(0, len(poly), 100):
-                    new_poly.append(poly[j])
-                    new_poly.append(poly[j + 1])
-                new_polys.append(new_poly)
-
-            mask = annToMask(new_polys, json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
-            encoded_pixels.append(rle_to_string(rle_encode(mask)))
-
-            print(len(rle_to_string(rle_encode(mask))), len(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation'])))))
-        except:
-            excepts += 1
-            print("except")
-            encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
+        # try:
+        #     mask = mutils.decode(json_data[i]['segmentation'])
+        #     polys = mask_to_poly(mask)
+        #     new_polys = []
+        #     for poly in polys:
+        #         new_poly = []
+        #         for j in range(0, len(poly), 100):
+        #             new_poly.append(poly[j])
+        #             new_poly.append(poly[j + 1])
+        #         new_polys.append(new_poly)
+        #
+        #     mask = annToMask(new_polys, json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
+        #     encoded_pixels.append(rle_to_string(rle_encode(mask)))
+        #
+        # except:
+        encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
         img_ids.append(json_data[i]['image_id'])
         category_ids.append(json_data[i]['category_id'])
         height.append(json_data[i]['segmentation']['size'][0])
@@ -147,7 +142,6 @@ def main():
 
     submission.to_csv(os.path.join(args.output_dir, 'submission.csv'), index=False)
     answer_dummy.to_csv(os.path.join(args.output_dir, 'answer_dummy.csv'), index=False)
-    print(excepts)
 
 if __name__ == '__main__':
     main()
