@@ -1,6 +1,7 @@
 import json
 import numpy as np
 from pycocotools import mask as mutils
+from pycocotools import coco
 from tqdm import tqdm
 import pandas as pd
 from argparse import ArgumentParser
@@ -42,6 +43,32 @@ def rle_decode(rle_str, mask_shape, mask_dtype):
         mask[lo:hi] = 1
     return mask.reshape(mask_shape[::-1]).T
 
+def annToRLE(segm, h, w):
+    """
+    Convert annotation which can be polygons, uncompressed RLE to RLE.
+    :return: binary mask (numpy 2D array)
+    """
+    if type(segm) == list:
+        # polygon -- a single object might consist of multiple parts
+        # we merge all parts into one mask rle code
+        rles = mutils.frPyObjects(segm, h, w)
+        rle = mutils.merge(rles)
+    elif type(segm['counts']) == list:
+        # uncompressed RLE
+        rle = mutils.frPyObjects(segm, h, w)
+    else:
+        # rle
+        rle = segm
+    return rle
+
+def annToMask(ann, h, w):
+    """
+    Convert annotation which can be polygons, uncompressed RLE, or RLE to binary mask.
+    :return: binary mask (numpy 2D array)
+    """
+    rle = annToRLE(ann, h, w)
+    m = mutils.decode(rle)
+    return m
 
 def mask_to_poly(mask):
     contours, hierarchy = cv2.findContours((mask).astype(np.uint8), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -58,7 +85,6 @@ def mask_to_poly(mask):
     if len(segmentation) == 0:
         return None
     return segmentation[0]
-
 
 def main():
     parser = ArgumentParser()
@@ -84,8 +110,11 @@ def main():
 
     for i in tqdm(range(len(json_data))):
         mask = mutils.decode(json_data[i]['segmentation'])
+        print(mask.shape)
         poly = mask_to_poly(mask)
         print(poly)
+        mask = annToMask(poly)
+        print(mask.shape)
         sys.exit()
         encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
         img_ids.append(json_data[i]['image_id'])
