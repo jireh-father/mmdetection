@@ -45,6 +45,6 @@ optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 #     ])
 # # yapf:enable
 # dist_params = dict(backend='nccl')
-# log_level = 'INFO'
+log_level = 'ERROR'
 # load_from = None
 # resume_from = None
