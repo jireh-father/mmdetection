@@ -28,49 +28,6 @@ test_pipeline = [
         ])
 ]
 
-train_transforms = [
-    dict(type='RandomSizedCrop',
-         min_max_height=(400, 800),
-         height=800,
-         width=800,
-         p=0.5),
-    dict(type='Resize', height=800, width=800, p=1.0),
-    dict(type='OneOf',
-         transforms=[
-             dict(type='ShiftScaleRotate', border_mode=0,
-                  rotate_limit=20, p=0.9),
-             dict(type='OpticalDistortion', border_mode=0,
-                  distort_limit=5.0, shift_limit=0.1, p=0.9),
-             dict(type='GridDistortion', border_mode=0,
-                  blur_limit=1, p=0.9),
-             dict(type='ElasticTransform', border_mode=0,
-                  alpha_affine=15, p=0.9),
-             dict(type='IAAPerspective', p=0.9),
-         ], p=0.05),
-    dict(type='Rotate', limit=40, border_mode=0, p=0.1),
-    dict(type='OneOf',
-         transforms=[
-             dict(type='HueSaturationValue',
-                  hue_shift_limit=0.2,
-                  sat_shift_limit=0.2,
-                  val_shift_limit=0.2, p=0.9),
-             dict(type='RandomBrightnessContrast',
-                  brightness_limit=0.2,
-                  contrast_limit=0.2, p=0.9)
-         ], p=0.1),
-    # dict(type='OneOf',
-    #      transforms=[
-    #          dict(type='MotionBlur', blur_limit=1, p=0.9),
-    #          dict(type='Blur', blur_limit=1, p=0.9),
-    #          dict(type='MedianBlur', blur_limit=1, p=0.9),
-    #          dict(type='GaussianBlur', blur_limit=1, p=0.9),
-    #      ], p=0.05),
-    dict(type='RandomGamma', p=0.05),
-    dict(type='RGBShift', p=0.05),
-    dict(type='CLAHE', p=0.05),
-    dict(type='ChannelShuffle', p=0.05),
-    dict(type='InvertImg', p=0.05),
-]
 # classes = ('top',
 #            'blouse',
 #            't-shirt',
