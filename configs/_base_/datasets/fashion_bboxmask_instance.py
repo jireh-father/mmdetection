@@ -28,7 +28,6 @@ test_pipeline = [
         ])
 ]
 
-
 train_transforms = [
     dict(type='RandomSizedCrop',
          min_max_height=(400, 800),
@@ -59,17 +58,17 @@ train_transforms = [
                   brightness_limit=0.2,
                   contrast_limit=0.2, p=0.9)
          ], p=0.1),
-    dict(type='OneOf',
-         transforms=[
-             dict(type='MotionBlur',
-                  blur_limit=1, p=0.9),
-             dict(type='Blur',
-                  blur_limit=1, p=0.9),
-             dict(type='MedianBlur',
-                  blur_limit=1, p=0.9),
-             dict(type='GaussianBlur',
-                  blur_limit=1, p=0.9),
-         ], p=0.05),
+    # dict(type='OneOf',
+    #      transforms=[
+    #          dict(type='MotionBlur', blur_limit=1, p=0.9),
+    #          dict(type='Blur', blur_limit=1, p=0.9),
+    #          dict(type='MedianBlur', blur_limit=1, p=0.9),
+    #          dict(type='GaussianBlur', blur_limit=1, p=0.9),
+    #      ], p=0.05),
+    dict(type='MotionBlur', blur_limit=1, p=0.05),
+    dict(type='Blur', blur_limit=1, p=0.05),
+    dict(type='MedianBlur', blur_limit=1, p=0.05),
+    dict(type='GaussianBlur', blur_limit=1, p=0.05),
     dict(type='RandomGamma', p=0.05),
     dict(type='RGBShift', p=0.05),
     dict(type='CLAHE', p=0.05),
