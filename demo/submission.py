@@ -113,19 +113,21 @@ def main():
     category_ids = []
 
     for i in tqdm(range(len(json_data))):
-        mask = mutils.decode(json_data[i]['segmentation'])
-        polys = mask_to_poly(mask)
-        new_polys = []
-        for poly in polys:
-            new_poly = []
-            for j in range(0, len(poly), 6):
-                new_poly.append(poly[j])
-                new_poly.append(poly[j + 1])
-            new_polys.append(new_poly)
+        try:
+            mask = mutils.decode(json_data[i]['segmentation'])
+            polys = mask_to_poly(mask)
+            new_polys = []
+            for poly in polys:
+                new_poly = []
+                for j in range(0, len(poly), 6):
+                    new_poly.append(poly[j])
+                    new_poly.append(poly[j + 1])
+                new_polys.append(new_poly)
 
-        mask = annToMask(new_polys, json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
-        encoded_pixels.append(rle_to_string(rle_encode(mask)))
-        # encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
+            mask = annToMask(new_polys, json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
+            encoded_pixels.append(rle_to_string(rle_encode(mask)))
+        except:
+            encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
         img_ids.append(json_data[i]['image_id'])
         category_ids.append(json_data[i]['category_id'])
         height.append(json_data[i]['segmentation']['size'][0])
