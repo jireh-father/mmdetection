@@ -44,7 +44,7 @@ def rle_decode(rle_str, mask_shape, mask_dtype):
 
 
 def mask_to_poly(mask):
-    mask_new, contours, hierarchy = cv2.findContours((mask).astype(np.uint8), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours((mask).astype(np.uint8), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # before opencv 3.2
     # contours, hierarchy = cv2.findContours((mask).astype(np.uint8), cv2.RETR_TREE,
     #                                                    cv2.CHAIN_APPROX_SIMPLE)
