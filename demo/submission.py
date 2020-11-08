@@ -111,7 +111,7 @@ def main():
     height = []
     width = []
     category_ids = []
-
+    excepts = 0
     for i in tqdm(range(len(json_data))):
         try:
             mask = mutils.decode(json_data[i]['segmentation'])
@@ -127,6 +127,7 @@ def main():
             mask = annToMask(new_polys, json_data[i]['segmentation']['size'][0], json_data[i]['segmentation']['size'][1])
             encoded_pixels.append(rle_to_string(rle_encode(mask)))
         except:
+            excepts += 1
             print("except")
             encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
         img_ids.append(json_data[i]['image_id'])
@@ -143,7 +144,7 @@ def main():
 
     submission.to_csv(os.path.join(args.output_dir, 'submission.csv'), index=False)
     answer_dummy.to_csv(os.path.join(args.output_dir, 'answer_dummy.csv'), index=False)
-
+    print(excepts)
 
 if __name__ == '__main__':
     main()
