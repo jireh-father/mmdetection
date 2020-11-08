@@ -30,7 +30,7 @@ img_norm_cfg = dict(
 #
 
 train_transforms = [
-    dict(type='RandomSizedCrop',
+    dict(type='RandomResizedCrop',
          height=800,
          width=800,
          scale=[0.4, 1.0],
