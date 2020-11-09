@@ -1240,17 +1240,16 @@ class Albu(object):
                 if (not len(results['idx_mapper'])
                         and self.skip_img_without_anno):
                     return None
-        print(1)
         if 'gt_labels' in results:
             if isinstance(results['gt_labels'], list):
                 results['gt_labels'] = np.array(results['gt_labels'])
             results['gt_labels'] = results['gt_labels'].astype(np.int64)
-        print(2)
         # back to the original format
         results = self.mapper(results, self.keymap_back)
-        print(3)
         # update final shape
         if self.update_pad_shape:
+            print(results.keys())
+            print(results['img'].shape)
             results['pad_shape'] = results['img'].shape
         print("last!!")
         return results
