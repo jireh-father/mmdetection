@@ -1216,9 +1216,9 @@ class Albu(object):
                     'Albu only supports BitMap masks now')
             ori_masks = results['masks']
             results['masks'] = results['masks'].masks
-
+        print("before")
         results = self.aug(**results)
-
+        print("after")
         if 'bboxes' in results:
             if isinstance(results['bboxes'], list):
                 results['bboxes'] = np.array(
