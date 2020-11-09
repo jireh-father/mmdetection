@@ -1136,8 +1136,8 @@ class Albu(object):
         self.aug = Compose([self.albu_builder(t) for t in self.transforms],
                            bbox_params=self.bbox_params)
 
-        print(self.aug)
-        print(self.bbox_params)
+        print('aug', self.aug)
+        print('bbox_params', self.bbox_params)
         if not keymap:
             self.keymap_to_albu = {
                 'img': 'image',
