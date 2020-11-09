@@ -1202,6 +1202,7 @@ class Albu(object):
     def __call__(self, results):
         # dict to albumentations format
         print("call aug albu!!")
+        print("start", results)
         results = self.mapper(results, self.keymap_to_albu)
         # TODO: add bbox_fields
         if 'bboxes' in results:
@@ -1256,7 +1257,7 @@ class Albu(object):
         # update final shape
         if self.update_pad_shape:
             results['pad_shape'] = results['img'].shape
-
+        print("end", results)
         return results
 
     def __repr__(self):
