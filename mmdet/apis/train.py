@@ -130,7 +130,7 @@ def train_detector(model,
         for hook_cfg in cfg.custom_hooks:
             assert isinstance(hook_cfg, dict), \
                 'Each item in custom_hooks expects dict type, but got ' \
-                f'{type(hook_cfg)}'
+                    f'{type(hook_cfg)}'
             hook_cfg = hook_cfg.copy()
             priority = hook_cfg.pop('priority', 'NORMAL')
             hook = build_from_cfg(hook_cfg, HOOKS)
@@ -140,6 +140,6 @@ def train_detector(model,
         runner.resume(cfg.resume_from)
     elif cfg.load_from:
         runner.load_checkpoint(cfg.load_from)
-    print(len(data_loaders[0]))
-    print(len(data_loaders[0].dataset))
+    print('dl', len(data_loaders[0]))
+    print('ds', len(data_loaders[0].dataset))
     runner.run(data_loaders, cfg.workflow, cfg.total_epochs)
