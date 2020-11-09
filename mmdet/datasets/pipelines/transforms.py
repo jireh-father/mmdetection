@@ -1248,9 +1248,7 @@ class Albu(object):
         results = self.mapper(results, self.keymap_back)
         # update final shape
         if self.update_pad_shape:
-            print('in')
             results['pad_shape'] = results['img'].shape
-        print("out")
         return results
 
     def __repr__(self):

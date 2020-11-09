@@ -37,12 +37,13 @@ class Compose(object):
         """
 
         for t in self.transforms:
-            print('trans', t)
             data = t(data)
-            print("auged")
-            if data is None:
-                return None
-        print("transed")
+            try:
+                if data is None:
+                    return None
+            except:
+                import traceback
+                traceback.print_exc()
         return data
 
     def __repr__(self):
