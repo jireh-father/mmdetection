@@ -140,4 +140,6 @@ def train_detector(model,
         runner.resume(cfg.resume_from)
     elif cfg.load_from:
         runner.load_checkpoint(cfg.load_from)
+    print(len(data_loaders[0]))
+    print(len(data_loaders[0].dataset))
     runner.run(data_loaders, cfg.workflow, cfg.total_epochs)
