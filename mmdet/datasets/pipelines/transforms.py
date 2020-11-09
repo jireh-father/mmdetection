@@ -1201,6 +1201,7 @@ class Albu(object):
 
     def __call__(self, results):
         # dict to albumentations format
+        print("call aug albu!!")
         results = self.mapper(results, self.keymap_to_albu)
         # TODO: add bbox_fields
         if 'bboxes' in results:
