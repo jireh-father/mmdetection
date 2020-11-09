@@ -1212,7 +1212,7 @@ class Albu(object):
             # add pseudo-field for filtration
             if self.filter_lost_elements:
                 results['idx_mapper'] = np.arange(len(results['bboxes']))
-
+        print(1)
         # TODO: Support mask structure in albu
         if 'masks' in results:
             if isinstance(results['masks'], PolygonMasks):
@@ -1222,7 +1222,7 @@ class Albu(object):
             results['masks'] = results['masks'].masks
 
         results = self.aug(**results)
-
+        print(2)
         if 'bboxes' in results:
             if isinstance(results['bboxes'], list):
                 results['bboxes'] = np.array(
@@ -1245,15 +1245,15 @@ class Albu(object):
                 if (not len(results['idx_mapper'])
                         and self.skip_img_without_anno):
                     return None
-
+        print(3)
         if 'gt_labels' in results:
             if isinstance(results['gt_labels'], list):
                 results['gt_labels'] = np.array(results['gt_labels'])
             results['gt_labels'] = results['gt_labels'].astype(np.int64)
-
+        print(4)
         # back to the original format
         results = self.mapper(results, self.keymap_back)
-
+        print(5)
         # update final shape
         if self.update_pad_shape:
             results['pad_shape'] = results['img'].shape

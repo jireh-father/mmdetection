@@ -171,8 +171,8 @@ test_pipeline = [
 #            'jumpsuit')
 
 data = dict(
-    samples_per_gpu=3,
-    workers_per_gpu=3,
+    samples_per_gpu=1,
+    workers_per_gpu=1,
     train=dict(
         type=dataset_type,
         ann_file=data_root + 'fashion/train_total.json',
