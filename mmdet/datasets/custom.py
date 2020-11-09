@@ -186,6 +186,7 @@ class CustomDataset(Dataset):
         while True:
             try:
                 data = self.prepare_train_img(idx)
+                print("complete", data.keys())
                 if data is None:
                     idx = self._rand_another(idx)
                     continue
