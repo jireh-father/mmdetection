@@ -92,8 +92,8 @@ train_transforms = [
     # dict(type='Equalize', p=0.05),
     # dict(type='Posterize', p=0.05),
     # dict(type='FancyPCA', p=0.05),
-    dict(type='HorizontalFlip', p=0.2),
-    dict(type='VerticalFlip', p=0.2),
+    # dict(type='HorizontalFlip', p=0.2),
+    # dict(type='VerticalFlip', p=0.2),
     dict(type='GridDropout', p=0.05),
     # dict(type='ChannelDropout', p=0.05),
     dict(type='Cutout', num_holes=30, max_h_size=37, max_w_size=37, fill_value=0, p=0.05),
@@ -126,14 +126,14 @@ train_pipeline = [
         },
         update_pad_shape=False,
         skip_img_without_anno=True),
-    # dict(type='RandomFlip', flip_ratio=0.5),
+    dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='DefaultFormatBundle'),
     dict(
         type='Collect',
         keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks'],
-        meta_keys=['filename', 'ori_filename', 'ori_shape',
-                   'img_shape', 'pad_shape', 'scale_factor', 'img_norm_cfg']),
+        # meta_keys=['filename', 'ori_filename', 'ori_shape',
+        #            'img_shape', 'pad_shape', 'scale_factor', 'img_norm_cfg']),
 ]
 test_pipeline = [
     dict(type='LoadImageFromFile'),
