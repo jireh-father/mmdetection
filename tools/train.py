@@ -164,7 +164,6 @@ def main():
             CLASSES=datasets[0].CLASSES)
     # add an attribute for visualization convenience
     model.CLASSES = datasets[0].CLASSES
-    print(len(datasets[0]))
     train_detector(
         model,
         datasets,
