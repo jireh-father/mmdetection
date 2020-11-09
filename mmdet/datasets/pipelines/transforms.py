@@ -1133,9 +1133,13 @@ class Albu(object):
 
         self.bbox_params = (
             self.albu_builder(bbox_params) if bbox_params else None)
-        self.aug = Compose([self.albu_builder(t) for t in self.transforms],
-                           bbox_params=self.bbox_params)
-
+        try:
+            self.aug = Compose([self.albu_builder(t) for t in self.transforms],
+                               bbox_params=self.bbox_params)
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            raise e
         print('aug', self.aug)
         print('bbox_params', self.bbox_params)
         if not keymap:
