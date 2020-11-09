@@ -185,12 +185,10 @@ class CustomDataset(Dataset):
             return self.prepare_test_img(idx)
         while True:
             try:
-                print("pre start")
                 data = self.prepare_train_img(idx)
                 if data is None:
                     idx = self._rand_another(idx)
                     continue
-                print("out!!")
                 return data
             except:
                 idx = self._rand_another(idx)
@@ -211,9 +209,7 @@ class CustomDataset(Dataset):
         results = dict(img_info=img_info, ann_info=ann_info)
         if self.proposals is not None:
             results['proposals'] = self.proposals[idx]
-        print("pre pipe")
         self.pre_pipeline(results)
-        print("pipe")
         return self.pipeline(results)
 
     def prepare_test_img(self, idx):
