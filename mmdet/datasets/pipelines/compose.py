@@ -38,14 +38,10 @@ class Compose(object):
 
         for t in self.transforms:
             data = t(data)
+            if data is None:
+                return None
             print("out")
-            print(data.keys())
-            try:
-                if data is None:
-                    return None
-            except:
-                import traceback
-                traceback.print_exc()
+        print("all out")
         return data
 
     def __repr__(self):
