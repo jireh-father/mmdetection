@@ -39,6 +39,7 @@ class Compose(object):
         for t in self.transforms:
             print('trans', t)
             data = t(data)
+            print("auged")
             if data is None:
                 return None
         print("transed")
