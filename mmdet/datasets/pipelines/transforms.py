@@ -1133,13 +1133,9 @@ class Albu(object):
 
         self.bbox_params = (
             self.albu_builder(bbox_params) if bbox_params else None)
-        try:
-            self.aug = Compose([self.albu_builder(t) for t in self.transforms],
+        self.aug = Compose([self.albu_builder(t) for t in self.transforms],
                                bbox_params=self.bbox_params)
-        except Exception as e:
-            import traceback
-            traceback.print_exc()
-            raise e
+
         print('aug', self.aug)
         print('bbox_params', self.bbox_params)
         if not keymap:
@@ -1224,7 +1220,13 @@ class Albu(object):
             ori_masks = results['masks']
             results['masks'] = results['masks'].masks
         print('1-1')
-        results = self.aug(**results)
+        try:
+            results = self.aug(**results)
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            raise e
+
         print(2)
         if 'bboxes' in results:
             if isinstance(results['bboxes'], list):
