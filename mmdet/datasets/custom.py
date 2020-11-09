@@ -189,7 +189,6 @@ class CustomDataset(Dataset):
                 if data is None:
                     idx = self._rand_another(idx)
                     continue
-                print("done")
                 return data
             except:
                 idx = self._rand_another(idx)
