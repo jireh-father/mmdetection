@@ -1202,7 +1202,6 @@ class Albu(object):
     def __call__(self, results):
         # dict to albumentations format
         print("call aug albu!!")
-        print("start", results)
         results = self.mapper(results, self.keymap_to_albu)
         # TODO: add bbox_fields
         if 'bboxes' in results:
@@ -1220,7 +1219,7 @@ class Albu(object):
                     'Albu only supports BitMap masks now')
             ori_masks = results['masks']
             results['masks'] = results['masks'].masks
-
+        print('1-1')
         results = self.aug(**results)
         print(2)
         if 'bboxes' in results:
