@@ -189,8 +189,6 @@ class CustomDataset(Dataset):
                 if data is None:
                     idx = self._rand_another(idx)
                     continue
-                import pickle
-                pickle.dump(data, open("data{}.pkl".format(idx), 'wb+'))
                 return data
             except:
                 idx = self._rand_another(idx)
