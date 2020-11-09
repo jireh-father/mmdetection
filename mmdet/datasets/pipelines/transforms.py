@@ -1250,6 +1250,7 @@ class Albu(object):
         if self.update_pad_shape:
             print('in')
             results['pad_shape'] = results['img'].shape
+        print("out")
         return results
 
     def __repr__(self):
