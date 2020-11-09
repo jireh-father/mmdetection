@@ -1250,9 +1250,6 @@ class Albu(object):
         if self.update_pad_shape:
             print('in')
             results['pad_shape'] = results['img'].shape
-        print(results.keys())
-        print(results['img'].shape)
-        print("last!!")
         return results
 
     def __repr__(self):
