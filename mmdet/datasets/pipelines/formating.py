@@ -312,6 +312,8 @@ class Collect(object):
         data = {}
         img_meta = {}
         print(1)
+        print(self.meta_keys)
+        print(results.keys())
         for key in self.meta_keys:
             img_meta[key] = results[key]
         print(2)
