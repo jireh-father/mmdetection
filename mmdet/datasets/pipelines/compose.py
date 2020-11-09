@@ -38,6 +38,8 @@ class Compose(object):
 
         for t in self.transforms:
             data = t(data)
+            print("out")
+            print(data.keys())
             try:
                 if data is None:
                     return None
