@@ -1217,6 +1217,8 @@ class Albu(object):
             ori_masks = results['masks']
             results['masks'] = results['masks'].masks
         results = self.aug(**results)
+
+        print("good after")
         if 'bboxes' in results:
             if isinstance(results['bboxes'], list):
                 results['bboxes'] = np.array(
@@ -1253,6 +1255,7 @@ class Albu(object):
             results['pad_shape'] = results['img'].shape
         import pickle
         pickle.dump(results, "test.pkl")
+        print("last!!")
         return results
 
     def __repr__(self):
