@@ -37,12 +37,9 @@ class Compose(object):
         """
 
         for t in self.transforms:
-            print("start", t)
             data = t(data)
             if data is None:
                 return None
-            print("out")
-        print("all out")
         return data
 
     def __repr__(self):
