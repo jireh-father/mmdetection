@@ -185,6 +185,7 @@ class CustomDataset(Dataset):
             return self.prepare_test_img(idx)
         while True:
             try:
+                print("start pre")
                 data = self.prepare_train_img(idx)
                 print("complete", data.keys())
                 if data is None:
