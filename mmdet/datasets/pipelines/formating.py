@@ -311,11 +311,15 @@ class Collect(object):
 
         data = {}
         img_meta = {}
+        print(1)
         for key in self.meta_keys:
             img_meta[key] = results[key]
+        print(2)
         data['img_metas'] = DC(img_meta, cpu_only=True)
+        print(3)
         for key in self.keys:
             data[key] = results[key]
+        print('last')
         return data
 
     def __repr__(self):
