@@ -1251,7 +1251,8 @@ class Albu(object):
         # update final shape
         if self.update_pad_shape:
             results['pad_shape'] = results['img'].shape
-
+        import pickle
+        pickle.dump(results, "test.pkl")
         return results
 
     def __repr__(self):
