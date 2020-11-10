@@ -35,7 +35,7 @@ model = dict(
 work_dir = './work_dirs/fashion_detectors'
 
 # optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
-optimizer = dict(type='SGD', lr=0.004, momentum=0.9, weight_decay=0.0001)
+optimizer = dict(type='SGD', lr=0.002, momentum=0.9, weight_decay=0.0001)
 # optimizer
 # optimizer = dict(type='SGD', lr=0.008, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=None)
@@ -52,8 +52,8 @@ lr_config = dict(
     warmup='linear',
     warmup_iters=500,
     warmup_ratio=0.001,
-    step=[28, 32])
-total_epochs = 36
+    step=[38, 42])
+total_epochs = 48
 
 # checkpoint_config = dict(interval=1)
 # # yapf:disable
