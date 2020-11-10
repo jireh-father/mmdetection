@@ -193,16 +193,16 @@ test_cfg = dict(
         max_num=1000,
         nms_thr=0.7,
         min_bbox_size=0),
-    # rcnn=dict(
-    #     # score_thr=0.05
-    #     score_thr=0.6 ,
-    #     nms=dict(type='nms', iou_threshold=0.5),
-    #     max_per_img=100,
-    #     mask_thr_binary=0.5)
     rcnn=dict(
         # score_thr=0.05
-        score_thr=0.5,
-        nms=dict(type='nms', iou_threshold=0.3),
+        score_thr=0.6,
+        nms=dict(type='nms', iou_threshold=0.5),
         max_per_img=100,
-        mask_thr_binary=0.45)
+        mask_thr_binary=0.5)
+    # rcnn=dict(
+    #     # score_thr=0.05
+    #     score_thr=0.5,
+    #     nms=dict(type='nms', iou_threshold=0.3),
+    #     max_per_img=100,
+    #     mask_thr_binary=0.45)
 )
