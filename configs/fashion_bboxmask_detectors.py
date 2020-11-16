@@ -1,7 +1,7 @@
 _base_ = [
     './_base_/models/cascade_mask_rcnn_r50_fpn_fashion.py',
     './_base_/datasets/fashion_bboxmask_instance.py',
-    './_base_/schedules/schedule_1x.py',
+    # './_base_/schedules/schedule_1x.py',
     './_base_/default_runtime.py'
 ]
 
@@ -68,3 +68,15 @@ work_dir = './work_dirs/fashion_detectors'
 # log_level = 'INFO'
 # load_from = None
 # resume_from = None
+
+# optimizer
+optimizer = dict(type='SGD', lr=0.004, momentum=0.9, weight_decay=0.0001)
+optimizer_config = dict(grad_clip=None)
+# learning policy
+lr_config = dict(
+    policy='step',
+    warmup='linear',
+    warmup_iters=500,
+    warmup_ratio=0.001,
+    step=[52, 56])
+total_epochs = 58
