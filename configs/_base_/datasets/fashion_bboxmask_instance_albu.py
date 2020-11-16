@@ -30,12 +30,13 @@ img_norm_cfg = dict(
 #
 
 train_transforms = [
-    dict(type='RandomResizedCrop',
-         height=800,
-         width=800,
-         scale=[0.4, 1.0],
-         interpolation=0,
-         p=0.5),
+    # dict(type='RandomResizedCrop',
+    #      height=800,
+    #      width=800,
+    #      scale=[0.6, 1.0],
+    #      ratio=[0.9, 1.1],
+    #      interpolation=0,
+    #      p=0.5),
     dict(type='Resize', height=800, width=800, p=1.0),
     # dict(type='OneOf',
     #      transforms=[
@@ -48,16 +49,19 @@ train_transforms = [
     #          dict(type='IAAPerspective', p=0.9),
     #      ], p=0.01),
     # dict(type='Rotate', limit=[-25, 25], border_mode=0, p=0.1),
-    dict(type='OneOf',
-         transforms=[
-             # dict(type='HueSaturationValue',
-             #      hue_shift_limit=[-20, 20],
-             #      sat_shift_limit=[-30, 30],
-             #      val_shift_limit=[-20, 20], p=0.9),
-             dict(type='RandomBrightnessContrast',
-                  brightness_limit=[-0.3, 0.3],
-                  contrast_limit=[-0.3, 0.3], p=0.5)
-         ], p=0.1),
+    # dict(type='OneOf',
+    #      transforms=[
+    #          # dict(type='HueSaturationValue',
+    #          #      hue_shift_limit=[-20, 20],
+    #          #      sat_shift_limit=[-30, 30],
+    #          #      val_shift_limit=[-20, 20], p=0.9),
+    #          dict(type='RandomBrightnessContrast',
+    #               brightness_limit=[-0.3, 0.3],
+    #               contrast_limit=[-0.3, 0.3], p=0.5)
+    #      ], p=0.1),
+    dict(type='RandomBrightnessContrast',
+         brightness_limit=[-0.3, 0.3],
+         contrast_limit=[-0.3, 0.3], p=0.5),
     # dict(type='OneOf',
     #      transforms=[
     #          dict(type='MotionBlur', blur_limit=[3, 7], p=0.9),
