@@ -94,6 +94,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('--result_file', help='Image file')
     parser.add_argument('--output_dir')
+    parser.add_argument('--thr', type=float, default=0.01)
     parser.add_argument(
         '--device', default='cuda:0', help='Device used for inference')
     parser.add_argument(
@@ -111,6 +112,8 @@ def main():
     height = []
     width = []
     category_ids = []
+    thr = 800 * 800 * args.thr
+    skip_cnt = 0
     for i in tqdm(range(len(json_data))):
         # try:
         #     mask = mutils.decode(json_data[i]['segmentation'])
@@ -127,6 +130,11 @@ def main():
         #     encoded_pixels.append(rle_to_string(rle_encode(mask)))
         #
         # except:
+
+        if mutils.decode(json_data[i]['segmentation']).sum() < thr:
+            skip_cnt += 1
+            print("skip")
+            continue
         encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
         img_ids.append(json_data[i]['image_id'])
         category_ids.append(json_data[i]['category_id'])
@@ -142,6 +150,8 @@ def main():
 
     submission.to_csv(os.path.join(args.output_dir, 'submission.csv'), index=False)
     answer_dummy.to_csv(os.path.join(args.output_dir, 'answer_dummy.csv'), index=False)
+    print("skip cnt", skip_cnt)
+
 
 if __name__ == '__main__':
     main()
