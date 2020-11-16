@@ -94,7 +94,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('--result_file', help='Image file')
     parser.add_argument('--output_dir')
-    parser.add_argument('--thr', type=float, default=0.01)
+    parser.add_argument('--thr', type=float, default=0.0)
     parser.add_argument(
         '--device', default='cuda:0', help='Device used for inference')
     parser.add_argument(
