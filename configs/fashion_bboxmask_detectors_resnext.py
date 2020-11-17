@@ -1,13 +1,13 @@
 _base_ = [
     './_base_/models/cascade_mask_rcnn_r50_fpn_fashion.py',
-    './_base_/datasets/fashion_bboxmask_instance_albu.py',
+    './_base_/datasets/fashion_bboxmask_instance.py',
     # './_base_/schedules/schedule_1x.py',
     './_base_/default_runtime.py'
 ]
 
 model = dict(
     backbone=dict(
-        type='DetectoRS_ResNet',
+        type='DetectoRS_ResNeXt',
         conv_cfg=dict(type='ConvAWS'),
         sac=dict(type='SAC', use_deform=True),
         stage_with_sac=(False, True, True, True),
@@ -34,28 +34,19 @@ model = dict(
 
 work_dir = './work_dirs/fashion_detectors'
 
-# optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
+optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 
+# optimizer
 # optimizer = dict(type='SGD', lr=0.008, momentum=0.9, weight_decay=0.0001)
-optimizer = dict(type='SGD', lr=0.002, momentum=0.9, weight_decay=0.0001)
-# optimizer = dict(type='Adam', lr=0.001, betas=(0.9, 0.999), eps=1e-8, weight_decay=0.00001)
-optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
+optimizer_config = dict(grad_clip=None)
 # learning policy
-# lr_config = dict(
-#     policy='step',
-#     warmup='linear',
-#     warmup_iters=500,
-#     warmup_ratio=0.001,
-#     step=[8, 11])
-# total_epochs = 12
-
 lr_config = dict(
     policy='step',
     warmup='linear',
     warmup_iters=500,
     warmup_ratio=0.001,
-    step=[36, 44])
-total_epochs = 50
+    step=[20, 23])
+total_epochs = 24
 
 # checkpoint_config = dict(interval=1)
 # # yapf:disable
