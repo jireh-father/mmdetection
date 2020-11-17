@@ -79,7 +79,7 @@ train_transforms = [
     #          dict(type='RGBShift', p=0.9),
     #          dict(type='CLAHE', clip_limit=[1, 15], p=0.9),
     #          dict(type='ChannelShuffle', p=0.9),
-    #          dict(type='InvertImg', p=0.9),
+    #          dict(type='In9vertImg', p=0.9),
     #      ], p=0.1),
     # dict(type='OneOf',
     #      transforms=[
