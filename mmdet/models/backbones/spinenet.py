@@ -2,10 +2,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .resnet import BasicBlock, Bottleneck, make_res_layer
+
+from .resnet import Resnet
 from mmdet.ops import ConvModule
 from mmcv.cnn import constant_init, kaiming_init
 from torch.nn.modules.batchnorm import _BatchNorm
-from ..registry import BACKBONES
+from ..builder import BACKBONES
 
 FILTER_SIZE_MAP = {
     1: 32,
