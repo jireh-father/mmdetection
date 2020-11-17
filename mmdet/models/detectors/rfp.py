@@ -65,17 +65,18 @@ class RecursiveFeaturePyramid(HybridTaskCascade):
         backbone["rfp"] = None
         backbone["stage_with_rfp"] = stage_with_rfp
         neck_out_channels = kwargs["neck"]["out_channels"]
-        print(kwargs)
         if rfp_sharing:
             backbone["rfp"] = neck_out_channels
+        kwargs['backbone'] = backbone
+        print(kwargs)
         super().__init__(
-                 num_stages,
-                 backbone,
-                 semantic_roi_extractor,
-                 semantic_head,
-                 semantic_fusion,
-                 interleaved,
-                 mask_info_flow,
+                 # num_stages,
+                 # backbone,
+                 # semantic_roi_extractor,
+                 # semantic_head,
+                 # semantic_fusion,
+                 # interleaved,
+                 # mask_info_flow,
                  **kwargs)
         if not self.rfp_sharing:
             backbone["rfp"] = neck_out_channels
