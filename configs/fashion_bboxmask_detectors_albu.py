@@ -1,7 +1,6 @@
 _base_ = [
     './_base_/models/cascade_mask_rcnn_r50_fpn_fashion.py',
     # './_base_/schedules/schedule_1x.py',
-    './_base_/default_runtime.py'
 ]
 
 model = dict(
@@ -126,7 +125,7 @@ test_cfg = dict(
     rcnn=dict(
         # score_thr=0.6
         score_thr=0.6,
-        nms=dict(type='nms', iou_threshold=0.5),
+        nms=dict(type='soft_nms', iou_threshold=0.5),
         max_per_img=100,
         mask_thr_binary=0.5)
     # rcnn=dict(
@@ -136,7 +135,6 @@ test_cfg = dict(
     #     max_per_img=100,
     #     mask_thr_binary=0.45)
 )
-
 
 dataset_type = 'FashionDataset'
 data_root = 'data/coco/'
@@ -191,7 +189,6 @@ data = dict(
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox', 'segm'])
 
-
 work_dir = './work_dirs/fashion_detectors'
 
 # optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
@@ -217,16 +214,17 @@ lr_config = dict(
     step=[36, 44])
 total_epochs = 50
 
-# checkpoint_config = dict(interval=1)
-# # yapf:disable
-# log_config = dict(
-#     interval=50,
-#     hooks=[
-#         dict(type='TextLoggerHook'),
-#         # dict(type='TensorboardLoggerHook')
-#     ])
-# # yapf:enable
-# dist_params = dict(backend='nccl')
-# log_level = 'INFO'
-# load_from = None
-# resume_from = None
+checkpoint_config = dict(interval=1)
+# yapf:disable
+log_config = dict(
+    interval=50,
+    hooks=[
+        dict(type='TextLoggerHook'),
+        # dict(type='TensorboardLoggerHook')
+    ])
+# yapf:enable
+dist_params = dict(backend='nccl')
+log_level = 'INFO'
+load_from = None
+resume_from = None
+workflow = [('train', 1)]
