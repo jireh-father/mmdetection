@@ -30,14 +30,18 @@ img_norm_cfg = dict(
 #
 
 train_transforms = [
+    dict(type='ShiftScaleRotate', border_mode=0,
+         shift_limit=[-0.15, 0.15], scale_limit=[-0.15, 0.15], rotate_limit=[-13, 13], p=0.3),
     dict(type='RandomResizedCrop',
          height=800,
          width=800,
-         scale=[0.8, 1.0],
+         scale=[0.99, 1.0],
          ratio=[0.9, 1.1],
          interpolation=0,
          p=0.5),
+
     dict(type='Resize', height=800, width=800, p=1.0),
+
     # dict(type='OneOf',
     #      transforms=[
     #          dict(type='ShiftScaleRotate', border_mode=0,
@@ -85,12 +89,12 @@ train_transforms = [
     #          dict(type='RandomSunFlare', num_flare_circles_lower=1, num_flare_circles_upper=2, src_radius=110, p=0.9),
     #          dict(type='RandomShadow', p=0.9),
     #      ], p=0.1),
-    # dict(type='OneOf',
-    #      transforms=[
-    #          dict(type='GaussNoise', var_limit=[10, 20], p=0.9),
-    #          dict(type='ISONoise', color_shift=[0, 15], p=0.9),
-    #          dict(type='MultiplicativeNoise', p=0.9),
-    #      ], p=0.1),
+    dict(type='OneOf',
+         transforms=[
+             dict(type='GaussNoise', var_limit=[1, 10], p=0.5),
+             dict(type='ISONoise', color_shift=[0.01, 0.06], p=0.5),
+             # dict(type='MultiplicativeNoise', p=0.9),
+         ], p=0.25),
     # dict(type='ToSepia', p=0.05),
     # dict(type='Solarize', p=0.05),
     # dict(type='Equalize', p=0.05),
