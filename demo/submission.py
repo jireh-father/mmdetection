@@ -130,9 +130,7 @@ def main():
         #     encoded_pixels.append(rle_to_string(rle_encode(mask)))
         #
         # except:
-        print(mutils.decode(json_data[i]['segmentation']).shape)
-        print(mutils.decode(json_data[i]['segmentation']).max())
-        print(mutils.decode(json_data[i]['segmentation']).min())
+        print(mutils.decode(json_data[i]['segmentation']).dtype)
         sys.exit()
         if mutils.decode(json_data[i]['segmentation']).sum() < thr:
             skip_cnt += 1
