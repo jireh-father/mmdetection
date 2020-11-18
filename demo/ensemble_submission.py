@@ -133,7 +133,7 @@ def main():
     for image_id in total_data:
         if len(total_data[image_id]) == 1:
             seg_result = total_data[image_id][0]
-            encoded_pixels.append(rle_to_string(rle_encode(seg_result['segmentation'])))
+            encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(seg_result['segmentation']))))
             img_ids.append(image_id)
             category_ids.append(seg_result['category_id'])
             height.append(seg_result['segmentation']['size'][0])
@@ -180,7 +180,7 @@ def main():
                 width.append(tmp_data[selected_id]['segmentation']['size'][1])
             for i in single_mask_ids:
                 seg_result = tmp_data[i]
-                encoded_pixels.append(rle_to_string(rle_encode(seg_result['segmentation'])))
+                encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(seg_result['segmentation']))))
                 img_ids.append(image_id)
                 category_ids.append(seg_result['category_id'])
                 height.append(seg_result['segmentation']['size'][0])
