@@ -144,6 +144,19 @@ def main():
             tmp_data = total_data[image_id]
             overlap_masks = []
             overlap_mask_ids = set()
+            if len(tmp_data) == 2:
+                mask1 = mutils.decode(tmp_data[0]['segmentation'])
+                mask2 = mutils.decode(tmp_data[1]['segmentation'])
+                iou = jaccard_score(mask1.flatten(), mask2.flatten())
+                if iou == 1.0:
+                    print("same insatnce")
+                    seg_result = tmp_data[0]
+                    encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(seg_result['segmentation']))))
+                    img_ids.append(image_id)
+                    category_ids.append(seg_result['category_id'])
+                    height.append(seg_result['segmentation']['size'][0])
+                    width.append(seg_result['segmentation']['size'][1])
+                    continue
             for i in range(len(tmp_data)):
                 for j in range(len(tmp_data)):
                     if i == j:
