@@ -130,8 +130,10 @@ def main():
             #     print("skip")
             #     continue
 
-    for image_id in total_data:
+    for data_idx, image_id in enumerate(total_data):
+        print(data_idx, len(total_data))
         if len(total_data[image_id]) == 1:
+            print("only one instance in a image")
             seg_result = total_data[image_id][0]
             encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(seg_result['segmentation']))))
             img_ids.append(image_id)
@@ -150,6 +152,7 @@ def main():
                     mask2 = mutils.decode(tmp_data[j]['segmentation'])
                     iou = jaccard_score(mask1.flatten(), mask2.flatten())
                     if iou >= args.iou_thr:
+                        print('iou', iou)
                         overlap_mask_ids.add(i)
                         overlap_mask_ids.add(j)
                         overlap_masks.append(
@@ -159,6 +162,7 @@ def main():
             for mask_item1, mask_item2 in overlap_masks:
                 if mask_item1[0] in used_masks or mask_item2[0] in used_masks:
                     continue
+                print("merged")
                 if args.use_merge:
                     result_mask = ((mask_item1[1] + mask_item2[1]) / 2).astype(np.uint8)
                     selected_id = mask_item1[0]
@@ -179,6 +183,7 @@ def main():
                 height.append(tmp_data[selected_id]['segmentation']['size'][0])
                 width.append(tmp_data[selected_id]['segmentation']['size'][1])
             for i in single_mask_ids:
+                print("single", i)
                 seg_result = tmp_data[i]
                 encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(seg_result['segmentation']))))
                 img_ids.append(image_id)
