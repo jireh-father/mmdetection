@@ -107,9 +107,6 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
 
     result_files = args.result_files.split(",")
-    filepath = args.result_file
-    with open(filepath) as json_file:
-        json_data = json.load(json_file)
 
     encoded_pixels = []
     img_ids = []
