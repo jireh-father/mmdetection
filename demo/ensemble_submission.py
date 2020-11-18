@@ -148,6 +148,8 @@ def main():
                         continue
                     mask1 = mutils.decode(tmp_data[i]['segmentation'])
                     mask2 = mutils.decode(tmp_data[j]['segmentation'])
+                    print(np.unique(mask1))
+                    print(np.unique(mask2))
                     iou = jaccard_score(mask1, mask2)
                     if iou >= args.iou_thr:
                         overlap_mask_ids.add(i)
