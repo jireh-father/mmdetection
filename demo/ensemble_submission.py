@@ -97,6 +97,7 @@ def main():
     parser.add_argument('--output_dir')
     parser.add_argument('--thr', type=float, default=0.0)
     parser.add_argument('--iou_thr', type=float, default=0.5)
+    parser.add_argument('--use_merge_overlap', action='store_true', default=False)
     parser.add_argument('--use_merge', action='store_true', default=False)
     parser.add_argument(
         '--device', default='cuda:0', help='Device used for inference')
@@ -177,7 +178,10 @@ def main():
                     continue
                 print("merged")
                 if args.use_merge:
-                    result_mask = ((mask_item1[1] + mask_item2[1]) / 2).astype(np.uint8)
+                    if args.use_merge_overlap:
+                        result_mask = mask_item1[1] * mask_item2[1]
+                    else:
+                        result_mask = ((mask_item1[1] + mask_item2[1]) / 2).astype(np.uint8)
                     selected_id = mask_item1[0]
                 else:
                     if mask_item1[0] < mask_item2[0]:
