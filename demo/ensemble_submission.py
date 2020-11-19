@@ -158,12 +158,23 @@ def main():
                     height.append(seg_result['segmentation']['size'][0])
                     width.append(seg_result['segmentation']['size'][1])
                     continue
+            mask_cache = {}
             for i in range(len(tmp_data)):
                 for j in range(len(tmp_data)):
                     if i == j:
                         continue
-                    mask1 = mutils.decode(tmp_data[i]['segmentation'])
-                    mask2 = mutils.decode(tmp_data[j]['segmentation'])
+                    if i in mask_cache:
+                        mask1 = mask_cache[i]
+                    else:
+                        mask1 = mutils.decode(tmp_data[i]['segmentation'])
+                        mask_cache[i] = mask1
+
+                    if j in mask_cache:
+                        mask2 = mask_cache[j]
+                    else:
+                        mask2 = mutils.decode(tmp_data[j]['segmentation'])
+                        mask_cache[j] = mask2
+
                     iou = jaccard_score(mask1.flatten(), mask2.flatten())
                     if iou >= args.iou_thr:
                         print('iou', iou)
