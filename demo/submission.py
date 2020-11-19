@@ -114,6 +114,7 @@ def main():
     category_ids = []
     thr = 800 * 800 * args.thr
     skip_cnt = 0
+    imgs = {}
     for i in tqdm(range(len(json_data))):
         # try:
         #     mask = mutils.decode(json_data[i]['segmentation'])
@@ -135,6 +136,7 @@ def main():
             print("skip")
             continue
         encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(json_data[i]['segmentation']))))
+        imgs[json_data[i]['image_id']] = True
         img_ids.append(json_data[i]['image_id'])
         category_ids.append(json_data[i]['category_id'])
         height.append(json_data[i]['segmentation']['size'][0])
@@ -147,6 +149,7 @@ def main():
     submission = pd.DataFrame(data)
     answer_dummy = submission.sample(50)
 
+    print('img cnt', len(imgs))
     submission.to_csv(os.path.join(args.output_dir, 'submission.csv'), index=False)
     answer_dummy.to_csv(os.path.join(args.output_dir, 'answer_dummy.csv'), index=False)
     print("skip cnt", skip_cnt)
