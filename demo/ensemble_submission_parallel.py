@@ -256,10 +256,18 @@ def main():
     pool.map(ensemble, list(zip(split_data, list(range(args.n)))))
 
     print("all done")
-    data = {}
+    data = {'ImageId': [],
+            'EncodedPixels': [],
+            'Height': [],
+            'Width': [],
+            'CategoryId': []}
     for i in range(args.n):
         tmp_data = pickle.load(open(os.path.join(args.output_dir, "{}.pkl".format(i)), "rb"))
-        data.update(tmp_data)
+        data['ImageId'] += tmp_data['ImageId']
+        data['EncodedPixels'] += tmp_data['EncodedPixels']
+        data['Height'] += tmp_data['Height']
+        data['Width'] += tmp_data['Width']
+        data['CategoryId'] += tmp_data['CategoryId']
     submission = pd.DataFrame(data)
     answer_dummy = submission.sample(10)
     print('total length', len(data['ImageId']))
@@ -270,6 +278,5 @@ def main():
     # print("skip cnt", skip_cnt)
     print("wrote")
 
-
-if __name__ == '__main__':
-    main()
+    if __name__ == '__main__':
+        main()
