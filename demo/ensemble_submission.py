@@ -159,8 +159,9 @@ def main():
                     width.append(seg_result['segmentation']['size'][1])
                     continue
             mask_cache = {}
-            for i in range(len(tmp_data)):
-                for j in range(len(tmp_data)):
+            for i in range(len(tmp_data) - 1):
+                for j in range(i + 1, len(tmp_data)):
+                    # for j in range(len(tmp_data)):
                     if i == j:
                         continue
                     if i in mask_cache:
@@ -213,7 +214,11 @@ def main():
             for i in single_mask_ids:
                 print("single", i)
                 seg_result = tmp_data[i]
-                encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(seg_result['segmentation']))))
+                if i in mask_cache:
+                    mask = mask_cache[i]
+                else:
+                    mask = mutils.decode(seg_result['segmentation'])
+                encoded_pixels.append(rle_to_string(rle_encode(mask)))
                 img_ids.append(image_id)
                 category_ids.append(seg_result['category_id'])
                 height.append(seg_result['segmentation']['size'][0])
