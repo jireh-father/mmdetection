@@ -152,7 +152,7 @@ def main():
                 if iou == 1.0:
                     print("same insatnce")
                     seg_result = tmp_data[0]
-                    encoded_pixels.append(rle_to_string(rle_encode(mutils.decode(seg_result['segmentation']))))
+                    encoded_pixels.append(rle_to_string(rle_encode(mask1)))
                     img_ids.append(image_id)
                     category_ids.append(seg_result['category_id'])
                     height.append(seg_result['segmentation']['size'][0])
