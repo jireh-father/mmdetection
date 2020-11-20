@@ -222,7 +222,7 @@ def ensemble(split_data):
             'CategoryId': category_ids}
 
     pickle.dump(data, open(os.path.join(args.output_dir, "{}.pkl".format(process_id)), "wb+"))
-    print("process id {} done", format(process_id))
+    print("process id {} done".format(process_id))
 
 
 def main():
