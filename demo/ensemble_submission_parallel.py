@@ -120,7 +120,6 @@ def ensemble(split_data):
     category_ids = []
     thr = 800 * 800 * args.thr
     skip_cnt = 0
-    total_data = {}
 
     for data_idx, image_id in enumerate(total_data):
         print(data_idx, len(total_data))
