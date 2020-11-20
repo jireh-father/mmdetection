@@ -250,8 +250,8 @@ def main():
     split_data = []
     total_data_list = list(total_data.items())
     for i in range(args.n):
-        split_data.append(total_data_list[i * each_cnt:(i + 1) * each_cnt][:10])
-    split_data[0] += total_data_list[args.n * each_cnt:][:1]
+        split_data.append(total_data_list[i * each_cnt:(i + 1) * each_cnt])
+    split_data[0] += total_data_list[args.n * each_cnt:]
     pool = Pool(args.n)
     pool.map(ensemble, list(zip(split_data, list(range(args.n)))))
 
