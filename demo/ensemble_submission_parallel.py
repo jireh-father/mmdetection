@@ -11,7 +11,7 @@ import cv2
 from sklearn.metrics import jaccard_score
 from multiprocessing import Pool
 import pickle
-
+print(1)
 parser = ArgumentParser()
 parser.add_argument('--result_files', help='Image file')
 parser.add_argument('--output_dir')
@@ -26,7 +26,7 @@ parser.add_argument(
     '--score-thr', type=float, default=0.3, help='bbox score threshold')
 args = parser.parse_args()
 
-
+print(1)
 def rle_encode(mask):
     pixels = mask.T.flatten()
     # We need to allow for cases where there is a '1' at either end of the sequence.
@@ -46,7 +46,7 @@ def rle_encode(mask):
 
 def rle_to_string(runs):
     return ' '.join(str(x) for x in runs)
-
+print(1)
 
 # Used only for testing.
 # This is copied from https://www.kaggle.com/paulorzp/run-length-encode-and-decode.
