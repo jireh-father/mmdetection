@@ -225,6 +225,7 @@ def ensemble(split_data):
 
 
 def main():
+    print(1)
     os.makedirs(args.output_dir, exist_ok=True)
 
     result_files = args.result_files.split(",")
@@ -245,7 +246,7 @@ def main():
             #     continue
 
     total_cnt = len(total_data)
-
+    print(1)
     each_cnt = total_cnt // args.n
     split_data = []
     total_data_list = list(total_data.items())
@@ -254,7 +255,7 @@ def main():
     split_data[0] += total_data_list[args.n * each_cnt:]
     pool = Pool(args.n)
     pool.map(ensemble, list(zip(split_data, list(range(args.n)))))
-
+    print(1)
     print("all done")
     data = {'ImageId': [],
             'EncodedPixels': [],
@@ -272,7 +273,7 @@ def main():
     answer_dummy = submission.sample(10)
     print('total length', len(data['ImageId']))
     print("merge done")
-
+    print(1)
     submission.to_csv(os.path.join(args.output_dir, 'submission.csv'), index=False)
     answer_dummy.to_csv(os.path.join(args.output_dir, 'answer_dummy.csv'), index=False)
     # print("skip cnt", skip_cnt)
