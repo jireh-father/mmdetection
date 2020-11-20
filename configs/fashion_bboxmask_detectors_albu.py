@@ -124,7 +124,7 @@ test_cfg = dict(
     #         mask_thr_binary=0.5)
     rcnn=dict(
         # score_thr=0.6
-        score_thr=0.775,
+        score_thr=0.81,
         nms=dict(type='soft_nms', iou_threshold=0.5),
         max_per_img=100,
         mask_thr_binary=0.5)
