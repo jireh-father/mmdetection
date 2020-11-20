@@ -262,7 +262,7 @@ def main():
         tmp_data = pickle.load(open(os.path.join(args.output_dir, "{}.pkl".format(i)), "rb"))
         data.update(tmp_data)
     submission = pd.DataFrame(data)
-    answer_dummy = submission.sample(50)
+    answer_dummy = submission.sample(10)
     print('total length', len(data))
     print("merge done")
 
