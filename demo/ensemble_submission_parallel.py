@@ -280,5 +280,5 @@ def main():
     # print("skip cnt", skip_cnt)
     print("wrote")
 
-    if __name__ == '__main__':
-        main()
+if __name__ == '__main__':
+    main()
