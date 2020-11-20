@@ -221,7 +221,7 @@ def ensemble(split_data):
             'CategoryId': category_ids}
 
     pickle.dump(data, open(os.path.join(args.output_dir, "{}.pkl".format(process_id)), "wb+"))
-    print("process id {} done. data cnt {}".format(process_id, len(data)))
+    print("process id {} done. data cnt {}".format(process_id, len(data['ImageId'])))
 
 
 def main():
@@ -262,7 +262,7 @@ def main():
         data.update(tmp_data)
     submission = pd.DataFrame(data)
     answer_dummy = submission.sample(10)
-    print('total length', len(data))
+    print('total length', len(data['ImageId']))
     print("merge done")
 
     submission.to_csv(os.path.join(args.output_dir, 'submission.csv'), index=False)
