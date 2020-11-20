@@ -107,7 +107,7 @@ def mask_to_poly(mask):
         return None
     return segmentation
 
-
+print(1)
 def ensemble(split_data):
     total_data = dict(split_data[0])
     process_id = split_data[1]
@@ -226,11 +226,11 @@ def ensemble(split_data):
 
 
 def main():
-    print(1)
+    print(2)
     os.makedirs(args.output_dir, exist_ok=True)
 
     result_files = args.result_files.split(",")
-
+    print(2)
     total_data = {}
     for ridx, result_file in enumerate(result_files):
         json_data = json.load(open(result_file))
