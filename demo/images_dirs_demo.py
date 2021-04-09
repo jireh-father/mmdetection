@@ -28,8 +28,8 @@ def main():
         os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'crop'), exist_ok=True)
         os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'nodetected'), exist_ok=True)
         img_files = glob.glob(os.path.join(img_dir, "*"))
-        for img in img_files:
-            print(os.path.basename(img))
+        for j, img in enumerate(img_files):
+            print(i, j, len(img_files), os.path.basename(img))
             # test a single image
             start = time.time()
             result = inference_detector(model, img)
