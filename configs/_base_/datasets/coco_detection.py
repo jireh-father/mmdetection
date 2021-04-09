@@ -28,64 +28,24 @@ test_pipeline = [
         ])
 ]
 
-# classes = ('eye',)
-classes = ('top',
-               'blouse',
-               't-shirt',
-               'Knitted fabric',
-               'shirt',
-               'bra top',
-               'hood',
-               'blue jeans',
-               'pants',
-               'skirt',
-               'leggings',
-               'jogger pants',
-               'coat',
-               'jacket',
-               'jumper',
-               'padding jacket',
-               'best',
-               'kadigan',
-               'zip up',
-               'dress',
-               'jumpsuit')
-# data = dict(
-#     samples_per_gpu=2,
-#     workers_per_gpu=2,
-#     train=dict(
-#         type=dataset_type,
-#         ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/train_coco.json',
-#         img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
-#         classes=classes, pipeline=train_pipeline),
-#     val=dict(
-#         type=dataset_type,
-#         ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/val_afp_coco.json',
-#         img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
-#         classes=classes, pipeline=test_pipeline),
-#     test=dict(
-#         type=dataset_type,
-#         ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/val_custom_coco.json',
-#         img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
-#         classes=classes, pipeline=test_pipeline))
-# evaluation = dict(interval=1, metric='bbox')
+classes = ('eye',)
 
 data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'fashion/train_split.json',
-        img_prefix=data_root + 'fashion/train_images',
+        ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/train_coco.json',
+        img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
         classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'fashion/val_split.json',
-        img_prefix=data_root + 'fashion/train_images',
+        ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/val_afp_coco.json',
+        img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'fashion/val_split.json',
-        img_prefix=data_root + 'fashion/train_images',
+        ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/val_custom_coco.json',
+        img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
