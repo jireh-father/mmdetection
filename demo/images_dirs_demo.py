@@ -39,7 +39,7 @@ def main():
             if os.path.isfile(output_path) and len(glob.glob(crop_output_path)) > 0:
                 print("skip")
                 continue
-            sys.exit()
+            continue
             # test a single image
             start = time.time()
             result = inference_detector(model, img)
