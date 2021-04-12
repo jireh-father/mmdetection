@@ -29,7 +29,15 @@ def main():
         os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'nodetected'), exist_ok=True)
         img_files = glob.glob(os.path.join(img_dir, "*"))
         for j, img in enumerate(img_files):
-            print(i, j, len(img_files), os.path.basename(img))
+            print(i, j, len(img_files), os.path.basename(img), os.path.basename(os.path.dirname(img)))
+            output_path = os.path.join(args.output_dir, os.path.basename(img_dir), 'vis',
+                                       os.path.splitext(os.path.basename(img))[0] + ".jpg")
+            crop_output_path = os.path.join(args.output_dir, os.path.basename(img_dir), 'crop',
+                                            os.path.splitext(os.path.basename(img))[0] + "_*.jpg")
+            if os.path.isfile(output_path) and len(glob.glob(crop_output_path)) > 0:
+                print("skip")
+                continue
+            sys.exit()
             # test a single image
             start = time.time()
             result = inference_detector(model, img)
@@ -38,8 +46,7 @@ def main():
             if len(result) < 1 or len(result[0]) < 1:
                 shutil.copy(img, os.path.join(args.output_dir, 'nodetected'))
                 continue
-            output_path = os.path.join(args.output_dir, os.path.basename(img_dir), 'vis',
-                                       os.path.splitext(os.path.basename(img))[0] + ".jpg")
+
             save_result_pyplot(model, img, result, output_path, score_thr=args.score_thr)
             im = Image.open(img).convert("RGB")
             for j, bbox in enumerate(result[0]):
