@@ -28,11 +28,11 @@ def main():
         os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'crop'), exist_ok=True)
         os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'nodetected'), exist_ok=True)
         img_files = glob.glob(os.path.join(img_dir, "*"))
-        if i < 23:
+        if i < 366:
             print("skip")
             continue
         for j, img in enumerate(img_files):
-            if i == 23 and j < 61:
+            if i == 366 and j < 140:
                 print("skip")
                 continue
             print(i, j, len(img_files), os.path.basename(img), os.path.basename(os.path.dirname(img)))
