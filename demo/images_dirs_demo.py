@@ -34,12 +34,8 @@ def main():
                                        os.path.splitext(os.path.basename(img))[0] + ".jpg")
             crop_output_path = os.path.join(args.output_dir, os.path.basename(img_dir), 'crop',
                                             os.path.splitext(os.path.basename(img))[0] + "_*.jpg")
-            print(crop_output_path)
-            print(os.path.isfile(output_path), len(glob.glob(crop_output_path)))
             if os.path.isfile(output_path) and len(glob.glob(crop_output_path)) > 0:
                 print("skip")
-                continue
-            continue
             # test a single image
             start = time.time()
             result = inference_detector(model, img)
