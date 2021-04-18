@@ -6,6 +6,7 @@ import os
 import time
 import shutil
 from PIL import Image
+import traceback
 
 
 def main():
@@ -32,9 +33,9 @@ def main():
         #     print("skip")
         #     continue
         for j, img in enumerate(img_files):
-        #     if i == 366 and j < 140:
-        #         print("skip")
-        #         continue
+            #     if i == 366 and j < 140:
+            #         print("skip")
+            #         continue
             print(i, j, len(img_files), os.path.basename(img), os.path.basename(os.path.dirname(img)))
             output_path = os.path.join(args.output_dir, os.path.basename(img_dir), 'vis',
                                        os.path.splitext(os.path.basename(img))[0] + ".jpg")
@@ -44,7 +45,11 @@ def main():
                 print("skip")
             # test a single image
             start = time.time()
-            result = inference_detector(model, img)
+            try:
+                result = inference_detector(model, img)
+            except:
+                traceback.print_exc()
+                continue
             print(time.time() - start)
             # show the results
             if len(result) < 1 or len(result[0]) < 1:
