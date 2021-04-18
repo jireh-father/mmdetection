@@ -57,7 +57,11 @@ def main():
                 continue
 
             save_result_pyplot(model, img, result, output_path, score_thr=args.score_thr)
-            im = Image.open(img).convert("RGB")
+            try:
+                im = Image.open(img).convert("RGB")
+            except:
+                traceback.print_exc()
+                continue
             for j, bbox in enumerate(result[0]):
                 if bbox[4] < args.score_thr:
                     continue
