@@ -43,6 +43,7 @@ def main():
                                             os.path.splitext(os.path.basename(img))[0] + "_*.jpg")
             if os.path.isfile(output_path) and len(glob.glob(crop_output_path)) > 0:
                 print("skip")
+                continue
             # test a single image
             start = time.time()
             try:
