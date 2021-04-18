@@ -31,7 +31,7 @@ def main():
         # if i < 366:
         #     print("skip")
         #     continue
-        # for j, img in enumerate(img_files):
+        for j, img in enumerate(img_files):
         #     if i == 366 and j < 140:
         #         print("skip")
         #         continue
