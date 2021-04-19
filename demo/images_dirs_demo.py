@@ -70,8 +70,8 @@ def main():
                 continue
             print(time.time() - start)
             # show the results
-            if len(result) < 1 or len(result[0]) < 1:
-                shutil.copy(img, os.path.join(args.output_dir, os.path.basename(img_dir), 'nodetected'))
+            if not args.use_only_crop and (len(result) < 1 or len(result[0]) < 1):
+                shutil.copy(img, os.path.join(args.output_dir, os.path.basename(img_dir), ''))
                 continue
 
             if not args.use_only_crop:
