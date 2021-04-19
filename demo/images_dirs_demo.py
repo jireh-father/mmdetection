@@ -19,6 +19,11 @@ def main():
         '--device', default='cuda:0', help='Device used for inference')
     parser.add_argument(
         '--score-thr', type=float, default=0.3, help='bbox score threshold')
+    parser.add_argument(
+        '--margin_ratio', type=float, default=None, help='bbox score threshold')
+    parser.add_argument(
+        '--crop_square', action='store_true', default=False, help='bbox score threshold')
+
     args = parser.parse_args()
 
     # build the model from a config file and a checkpoint file
@@ -66,7 +71,61 @@ def main():
             for j, bbox in enumerate(result[0]):
                 if bbox[4] < args.score_thr:
                     continue
-                crop_im = im.crop([int(b) for b in bbox[:-1]])
+
+                if args.crop_square:
+                    if args.margin_ratio > 0:
+                        x1, y1, x2, y2, _ = bbox
+                        w = x2 - x1
+                        h = y2 - y1
+                        w_margin = w * args.margin_ratio
+                        h_margin = h * args.margin_ratio
+                        x1 -= w_margin
+                        x2 += w_margin
+                        y1 -= h_margin
+                        y2 += h_margin
+                        x1 = max(0, x1)
+                        y1 = max(0, y1)
+                        x2 = min(x2, w)
+                        y2 = min(y2, h)
+                    else:
+                        x1, y1, x2, y2 = [int(b) for b in bbox[:-1]]
+                    w = x2 - x1
+                    h = y2 - y1
+                    if w > h:
+                        diff = w - h
+                        half, remain = divmod(diff, 2)
+                        y1 -= (half + remain)
+                        y2 += half
+                        y1 = max(0, y1)
+                        y2 = min(y2, h)
+                    elif w < h:
+                        diff = h - w
+                        half, remain = divmod(diff, 2)
+                        x1 -= (half + remain)
+                        x2 += half
+                        x1 = max(0, x1)
+                        x2 = min(x2, w)
+
+                    crop_im = im.crop((x1, y1, x2, y2))
+                else:
+                    if args.margin_ratio > 0:
+                        x1, y1, x2, y2, _ = bbox
+                        w = x2 - x1
+                        h = y2 - y1
+                        w_margin = w * args.margin_ratio
+                        h_margin = h * args.margin_ratio
+                        x1 -= w_margin
+                        x2 += w_margin
+                        y1 -= h_margin
+                        y2 += h_margin
+                        x1 = max(0, x1)
+                        y1 = max(0, y1)
+                        x2 = min(x2, w)
+                        y2 = min(y2, h)
+
+                        crop_im = im.crop((x1, y1, x2, y2))
+                    else:
+                        crop_im = im.crop([int(b) for b in bbox[:-1]])
                 crop_im.save(
                     os.path.join(args.output_dir, os.path.basename(img_dir), 'crop',
                                  os.path.splitext(os.path.basename(img))[0] + "_{}.jpg".format(j)))
