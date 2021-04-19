@@ -23,6 +23,8 @@ def main():
         '--margin_ratio', type=float, default=None, help='bbox score threshold')
     parser.add_argument(
         '--crop_square', action='store_true', default=False, help='bbox score threshold')
+    parser.add_argument(
+        '--use_only_crop', action='store_true', default=False, help='bbox score threshold')
 
     args = parser.parse_args()
 
@@ -30,9 +32,12 @@ def main():
     model = init_detector(args.config, args.checkpoint, device=args.device)
 
     for i, img_dir in enumerate(glob.glob(os.path.join(args.img_dirs, "*"))):
-        os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'vis'), exist_ok=True)
-        os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'crop'), exist_ok=True)
-        os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'nodetected'), exist_ok=True)
+        if args.use_only_crop:
+            os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir)), exist_ok=True)
+        else:
+            os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'vis'), exist_ok=True)
+            os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'crop'), exist_ok=True)
+            os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'nodetected'), exist_ok=True)
         img_files = glob.glob(os.path.join(img_dir, "*"))
         # if i < 366:
         #     print("skip")
@@ -42,13 +47,20 @@ def main():
             #         print("skip")
             #         continue
             print(i, j, len(img_files), os.path.basename(img), os.path.basename(os.path.dirname(img)))
-            output_path = os.path.join(args.output_dir, os.path.basename(img_dir), 'vis',
-                                       os.path.splitext(os.path.basename(img))[0] + ".jpg")
-            crop_output_path = os.path.join(args.output_dir, os.path.basename(img_dir), 'crop',
-                                            os.path.splitext(os.path.basename(img))[0] + "_*.jpg")
-            if os.path.isfile(output_path) and len(glob.glob(crop_output_path)) > 0:
-                print("skip")
-                continue
+            if args.use_only_crop:
+                crop_output_path = os.path.join(args.output_dir, os.path.basename(img_dir),
+                                                os.path.splitext(os.path.basename(img))[0] + "_*.jpg")
+                if len(glob.glob(crop_output_path)) > 0:
+                    print("skip")
+                    continue
+            else:
+                output_path = os.path.join(args.output_dir, os.path.basename(img_dir), 'vis',
+                                           os.path.splitext(os.path.basename(img))[0] + ".jpg")
+                crop_output_path = os.path.join(args.output_dir, os.path.basename(img_dir), 'crop',
+                                                os.path.splitext(os.path.basename(img))[0] + "_*.jpg")
+                if os.path.isfile(output_path) and len(glob.glob(crop_output_path)) > 0:
+                    print("skip")
+                    continue
             # test a single image
             start = time.time()
             try:
@@ -125,9 +137,15 @@ def main():
                         crop_im = im.crop((x1, y1, x2, y2))
                     else:
                         crop_im = im.crop([int(b) for b in bbox[:-1]])
-                crop_im.save(
-                    os.path.join(args.output_dir, os.path.basename(img_dir), 'crop',
-                                 os.path.splitext(os.path.basename(img))[0] + "_{}.jpg".format(j)))
+                if args.use_only_crop:
+                    crop_im.save(
+                        os.path.join(args.output_dir, os.path.basename(img_dir),
+                                     os.path.splitext(os.path.basename(img))[0] + "_{}.jpg".format(j)))
+
+                else:
+                    crop_im.save(
+                        os.path.join(args.output_dir, os.path.basename(img_dir), 'crop',
+                                     os.path.splitext(os.path.basename(img))[0] + "_{}.jpg".format(j)))
 
 
 if __name__ == '__main__':
