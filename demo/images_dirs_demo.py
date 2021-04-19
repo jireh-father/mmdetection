@@ -74,7 +74,8 @@ def main():
                 shutil.copy(img, os.path.join(args.output_dir, 'nodetected'))
                 continue
 
-            save_result_pyplot(model, img, result, output_path, score_thr=args.score_thr)
+            if not args.use_only_crop:
+                save_result_pyplot(model, img, result, output_path, score_thr=args.score_thr)
             try:
                 im = Image.open(img).convert("RGB")
             except:
