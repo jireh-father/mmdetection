@@ -105,7 +105,6 @@ def main():
                         x2 += half
                         x1 = max(0, x1)
                         x2 = min(x2, im_width)
-                    print(x1, y1, x2, y2)
                     crop_im = im.crop((x1, y1, x2, y2))
                 else:
                     if args.margin_ratio > 0:
