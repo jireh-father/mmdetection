@@ -73,7 +73,7 @@ def main():
                     continue
                 im_width, im_height = im.size
                 if args.crop_square:
-                    if args.margin_ratio > 0:
+                    if args.margin_ratio and args.margin_ratio > 0:
                         x1, y1, x2, y2, _ = bbox
                         w = x2 - x1
                         h = y2 - y1
@@ -107,7 +107,7 @@ def main():
                         x2 = min(x2, im_width)
                     crop_im = im.crop((x1, y1, x2, y2))
                 else:
-                    if args.margin_ratio > 0:
+                    if args.margin_ratio and args.margin_ratio > 0:
                         x1, y1, x2, y2, _ = bbox
                         w = x2 - x1
                         h = y2 - y1
