@@ -34,7 +34,6 @@ def main():
     for i, img_dir in enumerate(glob.glob(os.path.join(args.img_dirs, "*"))):
         if args.use_only_crop:
             os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir)), exist_ok=True)
-            os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir) + "_nodetected"), exist_ok=True)
         else:
             os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'vis'), exist_ok=True)
             os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir), 'crop'), exist_ok=True)
@@ -73,6 +72,9 @@ def main():
             # show the results
             if len(result) < 1 or len(result[0]) < 1:
                 if args.use_only_crop:
+                    if not os.path.isdir(os.path.join(args.output_dir, os.path.basename(img_dir) + "_nodetected")):
+                        os.makedirs(os.path.join(args.output_dir, os.path.basename(img_dir) + "_nodetected"),
+                                    exist_ok=True)
                     shutil.copy(img, os.path.join(args.output_dir, os.path.basename(img_dir) + "_nodetected"))
                 else:
                     shutil.copy(img, os.path.join(args.output_dir, os.path.basename(img_dir), 'nodetected'))
