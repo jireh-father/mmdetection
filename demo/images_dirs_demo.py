@@ -71,7 +71,7 @@ def main():
             for j, bbox in enumerate(result[0]):
                 if bbox[4] < args.score_thr:
                     continue
-
+                im_width, im_height = im.size
                 if args.crop_square:
                     if args.margin_ratio > 0:
                         x1, y1, x2, y2, _ = bbox
@@ -85,8 +85,8 @@ def main():
                         y2 += h_margin
                         x1 = max(0, x1)
                         y1 = max(0, y1)
-                        x2 = min(x2, w)
-                        y2 = min(y2, h)
+                        x2 = min(x2, im_width)
+                        y2 = min(y2, im_height)
                     else:
                         x1, y1, x2, y2 = [int(b) for b in bbox[:-1]]
                     w = x2 - x1
@@ -97,14 +97,14 @@ def main():
                         y1 -= (half + remain)
                         y2 += half
                         y1 = max(0, y1)
-                        y2 = min(y2, h)
+                        y2 = min(y2, im_height)
                     elif w < h:
                         diff = h - w
                         half, remain = divmod(diff, 2)
                         x1 -= (half + remain)
                         x2 += half
                         x1 = max(0, x1)
-                        x2 = min(x2, w)
+                        x2 = min(x2, im_width)
                     print(x1, y1, x2, y2)
                     crop_im = im.crop((x1, y1, x2, y2))
                 else:
@@ -120,8 +120,8 @@ def main():
                         y2 += h_margin
                         x1 = max(0, x1)
                         y1 = max(0, y1)
-                        x2 = min(x2, w)
-                        y2 = min(y2, h)
+                        x2 = min(x2, im_width)
+                        y2 = min(y2, im_height)
 
                         crop_im = im.crop((x1, y1, x2, y2))
                     else:
