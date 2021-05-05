@@ -15,6 +15,8 @@ from mmcv.ops import (ContextBlock, Conv2d, ConvTranspose2d, ConvWS2d,
                       nms_match, point_sample, rel_roi_point_to_rel_img_point,
                       roi_align, roi_pool, sigmoid_focal_loss, soft_nms)
 
+from .wbf import weighted_boxes_fusion
+from .nmw import non_maximum_weighted
 # yapf: enable
 
 __all__ = [
@@ -28,5 +30,5 @@ __all__ = [
     'conv_ws_2d', 'build_plugin_layer', 'batched_nms', 'Conv2d',
     'ConvTranspose2d', 'MaxPool2d', 'Linear', 'nms_match', 'CornerPool',
     'point_sample', 'rel_roi_point_to_rel_img_point', 'SimpleRoIAlign',
-    'SAConv2d'
+    'SAConv2d', 'weighted_boxes_fusion', 'non_maximum_weighted'
 ]

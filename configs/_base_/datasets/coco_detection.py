@@ -28,24 +28,24 @@ test_pipeline = [
         ])
 ]
 
-classes = ('eye',)
+classes = ('plant',)
 
 data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/train_coco.json',
-        img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
+        ann_file=data_root + 'plant/annotations/train.json',
+        img_prefix=data_root + 'plant/images',
         classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/val_afp_coco.json',
-        img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
+        ann_file=data_root + 'plant/annotations/val.json',
+        img_prefix=data_root + 'plant/images',
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'eye/total_afp_and_custom_coco_annotation/val_custom_coco.json',
-        img_prefix=data_root + 'eye/total_afp_and_custom_coco_images',
+        ann_file=data_root + 'plant/annotations/test.json',
+        img_prefix=data_root + 'plant/images',
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
