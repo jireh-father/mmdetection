@@ -46,6 +46,22 @@ def main():
         else:
             raise Exception("no image id in anno", tmp_anno)
 
+    for i, image_item in enumerate(train_images):
+        print(i, len(images))
+        image_path = os.path.join(args.image_dir, image_item["file_name"])
+        im = cv2.imread(image_path)
+        height, width, _ = im.shape
+        image_item['height'] = height
+        image_item['width'] = width
+
+    for i, image_item in enumerate(val_images):
+        print(i, len(images))
+        image_path = os.path.join(args.image_dir, image_item["file_name"])
+        im = cv2.imread(image_path)
+        height, width, _ = im.shape
+        image_item['height'] = height
+        image_item['width'] = width
+
     train_dict = {
         "info": anno["info"],
         "licenses": anno["info"],
@@ -62,12 +78,7 @@ def main():
         "annotations": val_anno
     }
 
-    for image_item in images:
-        image_path = os.path.join(args.image_dir, image_item["file_name"])
-        im = cv2.imread(image_path)
-        height, width, _ = im.shape
-        image_item['height'] = height
-        image_item['width'] = width
+
 
     os.makedirs(args.output_dir, exist_ok=True)
     json.dump(train_dict, open(os.path.join(args.output_dir, "train.json"), "w+"))
