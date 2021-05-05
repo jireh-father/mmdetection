@@ -50,6 +50,10 @@ def single_gpu_test(model,
                     img_show,
                     result[i],
                     show=show,
+                    bbox_color='red',
+                    text_color='red',
+                    thickness=4,
+                    font_scale=0.75,
                     out_file=out_file,
                     score_thr=show_score_thr)
 
