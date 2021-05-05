@@ -3,13 +3,14 @@ import argparse
 import random
 import json
 import os
-
+import cv2
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Evaluate metric of the '
                                                  'results saved in pkl format')
     parser.add_argument('--annotation_file', type=str, default=None)
     parser.add_argument('--output_dir', type=str, default=None)
+    parser.add_argument('--image_dir', type=str, default=None)
     parser.add_argument('--train_ratio', type=float, default=0.9)
     parser.add_argument('--random_seed', type=int, default=1)
     args = parser.parse_args()
@@ -60,6 +61,13 @@ def main():
         "images": val_images,
         "annotations": val_anno
     }
+
+    for image_item in images:
+        image_path = os.path.join(args.image_dir, image_item["file_name"])
+        im = cv2.imread(image_path)
+        height, width, _ = im.shape
+        image_item['height'] = height
+        image_item['width'] = width
 
     os.makedirs(args.output_dir, exist_ok=True)
     json.dump(train_dict, open(os.path.join(args.output_dir, "train.json"), "w+"))
