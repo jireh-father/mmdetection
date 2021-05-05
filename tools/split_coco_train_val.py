@@ -11,7 +11,7 @@ def parse_args():
     parser.add_argument('--annotation_file', type=str, default=None)
     parser.add_argument('--output_dir', type=str, default=None)
     parser.add_argument('--train_ratio', type=float, default=0.9)
-    parser.add_argument('--random_seed', type=int, default=None)
+    parser.add_argument('--random_seed', type=int, default=1)
     args = parser.parse_args()
     return args
 
