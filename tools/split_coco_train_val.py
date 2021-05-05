@@ -47,7 +47,7 @@ def main():
             raise Exception("no image id in anno", tmp_anno)
 
     for i, image_item in enumerate(train_images):
-        print(i, len(images))
+        print(i, len(train_images))
         image_path = os.path.join(args.image_dir, image_item["file_name"])
         im = cv2.imread(image_path)
         height, width, _ = im.shape
@@ -55,7 +55,7 @@ def main():
         image_item['width'] = width
 
     for i, image_item in enumerate(val_images):
-        print(i, len(images))
+        print(i, len(val_images))
         image_path = os.path.join(args.image_dir, image_item["file_name"])
         im = cv2.imread(image_path)
         height, width, _ = im.shape
